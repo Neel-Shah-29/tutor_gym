@@ -51,6 +51,9 @@ from tutorgym.envs.apprentice.cognitive_models.quadratic_equations import (
 from tutorgym.envs.apprentice.cognitive_models.rational_equation import (
     htn_rational_equation_find_domain as rational_equation_find_domain
 )
+from tutorgym.envs.apprentice.cognitive_models.solve_triangle import (
+    htn_geometry_solve_triangle as solve_triangle
+)
 
 ENVIRONMENTS = {
     'logarithms_quotient': (logarithms_quotient.Domain, logarithms_quotient.htn_logarithms_quotient_problem),
@@ -82,5 +85,7 @@ ENVIRONMENTS = {
     'quadratic_equations_solve_using_factors': (quadratic_equations_solve_using_factors.Domain, quadratic_equations_solve_using_factors.htn_quadratic_equations_solve_using_factors_problem),
     'quadratic_equations_solve_using_quadratic_formula': (quadratic_equations_solve_using_quadratic_formula.Domain, quadratic_equations_solve_using_quadratic_formula.htn_quadratic_equations_solve_using_quadratic_formula_problem),
     'quadratic_equations_solve_using_square_root_property': (quadratic_equations_solve_using_square_root_property.Domain, quadratic_equations_solve_using_square_root_property.htn_quadratic_equations_solve_using_square_root_property_problem),
-    'rational_equation_find_domain': (rational_equation_find_domain.Domain, rational_equation_find_domain.htn_rational_equation_find_domain_problem)
+    'rational_equation_find_domain': (rational_equation_find_domain.Domain, rational_equation_find_domain.htn_rational_equation_find_domain_problem),
+    'solve_triangle': (solve_triangle.Domain, solve_triangle.htn_geometry_solve_triangle_problem)
 }
+

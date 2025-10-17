@@ -1,0 +1,191 @@
+<div style="display: flex; justify-content: center; align-items: center;">
+    <form style="width: 650px;">
+        <div class="container" style="margin: 3%;">
+            <div class="row">
+                <div class="col-sm">
+                    <div style="text-align: center;">
+                        <h3>Solve Triangle (Sides/Angles)</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <input disabled type="text" id="initial_problem" name="triangle" class="form-control" style="display:none;">
+                    <div id="initial_problem_text" style="text-align: center; width: 500px;"></div>
+                </div>
+                <div class="col-sm"></div>
+            </div>
+            <div class="row" style="margin-top: 8px;">
+                <div class="col-sm"></div>
+                <div class="col-sm" style="display:flex; justify-content:center;">
+                    <!-- Inline SVG: Triangle ABC with sides a,b,c and angles A,B,C -->
+                    <svg width="650" height="312" viewBox="0 0 500 240" role="img" aria-label="Triangle ABC with sides a,b,c and angles A,B,C" style="max-width: 100%; border: 1px solid rgba(0,0,0,0.06); border-radius: 6px; background: #fff;">
+                        <!-- Points -->
+                        <!-- A (left base), B (right base), C (top) -->
+                        <defs>
+                            <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4">
+                                <circle cx="5" cy="5" r="3" fill="#333" />
+                            </marker>
+                        </defs>
+                        <!-- Triangle edges -->
+                        <polyline points="80,180 420,180 260,40 80,180" fill="none" stroke="#1f77b4" stroke-width="2" />
+                        <!-- Vertex dots -->
+                        <circle cx="80" cy="180" r="3" fill="#1f77b4" />
+                        <circle cx="420" cy="180" r="3" fill="#1f77b4" />
+                        <circle cx="260" cy="40" r="3" fill="#1f77b4" />
+
+                        <!-- Vertex labels (angles) -->
+                        <text x="68" y="196" font-size="14" fill="#000">A</text>
+                        <text x="428" y="196" font-size="14" fill="#000">B</text>
+                        <text x="252" y="30" font-size="14" fill="#000">C</text>
+
+                        <!-- Side labels: a opposite A (BC), b opposite B (AC), c opposite C (AB) -->
+                        <text x="330" y="168" font-size="14" fill="#444">a</text>
+                        <text x="170" y="95" font-size="14" fill="#444">b</text>
+                        <text x="240" y="193" font-size="14" fill="#444">c</text>
+
+                        <!-- Angle arcs (subtle) -->
+                        <path d="M 92 180 A 18 18 0 0 1 100 165" fill="none" stroke="#999" stroke-width="1" />
+                        <path d="M 408 180 A 18 18 0 0 0 400 165" fill="none" stroke="#999" stroke-width="1" />
+                        <path d="M 252 52 A 18 18 0 0 0 268 52" fill="none" stroke="#999" stroke-width="1" />
+
+                        <!-- Legend note -->
+                        <text x="12" y="20" font-size="12" fill="#666">Sides: a = BC, b = AC, c = AB</text>
+                    </svg>
+                </div>
+                <div class="col-sm"></div>
+            </div>
+        </div>
+        <div class="container level_0" style="margin: 2%;">
+            <div class="form-group">
+                <label for="side_a">Side a:</label>
+                <input type="number" id="side_a" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="side_b">Side b:</label>
+                <input type="number" id="side_b" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="side_c">Side c:</label>
+                <input type="number" id="side_c" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="angle_A">Angle A (deg):</label>
+                <input type="number" id="angle_A" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="angle_B">Angle B (deg):</label>
+                <input type="number" id="angle_B" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="angle_C">Angle C (deg):</label>
+                <input type="number" id="angle_C" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="right_triangle">Is this a right triangle?</label>
+                <select id="right_triangle" class="form-control">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="area_requested">Is area requested?</label>
+                <select id="area_requested" class="form-control">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                </select>
+            </div>
+        </div>
+        <div class="container level_0" style="margin: 2%;">
+            <div class="form-group">
+                <label for="normalize_inputs">Normalize Inputs:</label>
+                <input type="text" id="normalize_inputs" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="classify_triangle">Classify Triangle:</label>
+                <select id="classify_triangle" class="form-control">
+                    <option value="">Select…</option>
+                    <option value="Right">Right</option>
+                    <option value="Sines">Sines (ASA/AAS/SSA)</option>
+                    <option value="Cosines">Cosines (SSS/SAS)</option>
+                    <option value="Similarity">Similarity</option>
+                    <option value="Area">Area</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="apply_pythagorean">Apply Pythagorean:</label>
+                <input type="text" id="apply_pythagorean" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="use_trig_ratios">Use Trig Ratios:</label>
+                <input type="text" id="use_trig_ratios" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="resolve_ssa_ambiguity">Resolve SSA Ambiguity:</label>
+                <input type="text" id="resolve_ssa_ambiguity" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="compute_missing_angles">Compute Missing Angles:</label>
+                <math-field id="compute_missing_angles"  virtual-keyboard-mode="onfocus" style="width: 250px; border: 1px solid rgba(0, 0, 0, .3);"></math-field>
+            </div>
+            <div class="form-group">
+                <label for="compute_missing_sides">Compute Missing Sides:</label>
+                <input type="text" id="compute_missing_sides" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="compute_unknown_by_cosine">Compute Unknown By Cosine:</label>
+                <math-field id="compute_unknown_by_cosine"  virtual-keyboard-mode="onfocus" style="width: 250px; border: 1px solid rgba(0, 0, 0, .3);"></math-field>
+            </div>
+            <div class="form-group">
+                <label for="backfill_with_sines_if_needed">Backfill With Sines If Needed:</label>
+                <input type="text" id="backfill_with_sines_if_needed" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="map_correspondence">Map Correspondence:</label>
+                <input type="text" id="map_correspondence" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="scale_sides_angles">Scale Sides/Angles:</label>
+                <input type="text" id="scale_sides_angles" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="select_area_formula">Select Area Formula:</label>
+                <select id="select_area_formula" class="form-control">
+                    <option value="">Select…</option>
+                    <option value="1/2·a·b·sin(C)">1/2·a·b·sin(C)</option>
+                    <option value="Heron">Heron’s formula</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="compute_area">Compute Area:</label>
+                <input type="text" id="compute_area" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="consistency_checks">Consistency Checks:</label>
+                <input type="text" id="consistency_checks" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="report_solution">Report Solution:</label>
+                <input type="text" id="report_solution" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        const text = $('#initial_problem').val();
+        $('#initial_problem_text').text(text);
+
+        // Prefill given sides/angles from the initial problem text for convenience
+        const rx = /\b([abcABC])\s*=\s*([0-9]+)/g;
+        let m;
+        const map = { 'a': '#side_a', 'b': '#side_b', 'c': '#side_c', 'A': '#angle_A', 'B': '#angle_B', 'C': '#angle_C' };
+        while ((m = rx.exec(text)) !== null) {
+            const key = m[1];
+            const val = m[2];
+            const sel = map[key];
+            if (sel && !$(sel).val()) $(sel).val(val);
+        }
+    });
+</script>
