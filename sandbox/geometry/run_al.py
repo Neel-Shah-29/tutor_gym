@@ -1,10 +1,10 @@
-from apprentice.agents.ModularAgent import ModularAgent
-from apprentice.agents.RHS_LHS_Agent import RHS_LHS_Agent
-from apprentice.agents.WhereWhenHowNoFoa import WhereWhenHowNoFoa
+# from apprentice.agents.ModularAgent import ModularAgent
+# from apprentice.agents.RHS_LHS_Agent import RHS_LHS_Agent
+# from apprentice.agents.WhereWhenHowNoFoa import WhereWhenHowNoFoa
 import apprentice
 from apprentice.working_memory.representation import Sai
 
-from tutorgym.env_classes.misc.fraction_arith.fractions import FractionArithmetic
+# from tutorgym.env_classes.misc.fraction_arith.fractions import FractionArithmetic
 from tutorgym.trainer import Trainer, AuthorTrainer
 from tutorgym.utils import DataShopLogger
 
@@ -57,13 +57,13 @@ if __name__ == "__main__":
     logger_name = f'frac_{args.env_type}_{args.agent_type}_{args.n_fracs}frac_{args.n_problems}probs'
     
     for _ in range(args.n_agents):
-        if(args.agent_type.upper() == "DIPL"):
+        if(True):
             from apprentice.agents.cre_agents.cre_agent import CREAgent
             import tutorgym.helpers.ai2t_helpers # Registers SkillApplication -> Action
 
             agent_args = {
                 # "function_set": ['AcrossMultiply','Multiply', 'Add'],
-                "function_set": ['normalize_inputs'],
+                "function_set": ['classify_triangle'],
                 "feature_set": ['Equals'],
                 "planner":'set_chaining',
                 "explanation_choice" : "least_operations",

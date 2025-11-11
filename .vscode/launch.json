@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {"name":"Python Debugger: Current File","type":"debugpy","request":"launch","program":"${file}","console":"integratedTerminal"},
+        {"name":"Python Debugger: Current File with Arguments","type":"debugpy","request":"launch","program":"${file}","console":"integratedTerminal","args":"${command:pickArgs}"},
+        {
+            "name": "TutorGym Geometry (run_al.py)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/tutor_gym/sandbox/geometry/run_al.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/tutor_gym",
+            "python": "${env:HOME}/anaconda3/bin/python",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/tutor_gym:${workspaceFolder}/AL_Core:${env:PYTHONPATH}"
+            },
+            "justMyCode": false,
+            "subProcess": true
+        }
+    ]
+}

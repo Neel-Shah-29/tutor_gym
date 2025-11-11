@@ -8,8 +8,8 @@ from shop2.domain import Task, Operator, Method
 from shop2.fact import Fact
 from shop2.conditions import Filter
 from shop2.common import V
-from htn_cognitive_models import HTNCognitiveModel, htn_loaded_models
-from studymaterial import studymaterial
+
+# from studymaterial import studymaterial
 
 
 # ----------------------
@@ -590,13 +590,13 @@ def htn_geometry_solve_triangle_studymaterial():
     return studymaterial.get("geometry_solve_triangle", [])
 
 
-htn_loaded_models.register(HTNCognitiveModel(
-    'htn_geometry',
-    'htn_geometry_solve_triangle',
-    Domain,
-    Task(head=('solve', 'triangle'), primitive=False),
-    htn_geometry_solve_triangle_problem,
-    htn_geometry_solve_triangle_kc_mapping(),
-    htn_geometry_solve_triangle_intermediate_hints(),
-    htn_geometry_solve_triangle_studymaterial()
-))
+# htn_loaded_models.register(HTNCognitiveModel(
+#     'htn_geometry',
+#     'htn_geometry_solve_triangle',
+#     Domain,
+#     Task(head=('solve', 'triangle'), primitive=False),
+#     htn_geometry_solve_triangle_problem,
+#     htn_geometry_solve_triangle_kc_mapping(),
+#     htn_geometry_solve_triangle_intermediate_hints(),
+#     htn_geometry_solve_triangle_studymaterial()
+# ))

@@ -18,7 +18,7 @@ def planner(state:Fact, T: Union[List, Tuple], D: Dict, debug: bool = False) -> 
 
         T0 = getT0(T)
         task = T0[0]
-
+        print("TASK:", task)
         if task.primitive:
             result = D[task.name].applicable(task, state, debug)
             if result:
@@ -63,6 +63,8 @@ def planner(state:Fact, T: Union[List, Tuple], D: Dict, debug: bool = False) -> 
         else:
             
             result = D[task.name].applicable(task, state, str(), visited, debug)
+            print("METHOD RESULT:", result)
+            print("STATE INSIDE PLANNER", state)
             if result:
                 subtask = result
                 T = type(T)([subtask])+removeTask(T, task)

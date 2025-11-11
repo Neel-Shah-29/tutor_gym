@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime
 import logging
 
-import gym
+import gymnasium as gym
 from gym import spaces
 import numpy as np
 import hashlib

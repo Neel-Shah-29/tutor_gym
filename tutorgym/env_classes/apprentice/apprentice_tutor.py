@@ -14,7 +14,7 @@ import inspect
 # from tutorgym.env_classes.apprentice_tutor import ApprenticeTutor, HTNCognitiveModel
 from shop2.domain import Task
 from copy import deepcopy
-from shop2.conditions import AND
+from shop2.conditions import AND, OR
 from random import choice
 
 
@@ -114,11 +114,12 @@ def action_to_answer(action):
 
 
 class HTNCognitiveModel:
-    def __init__(self, start_state, task, domain, scaffold="all"):
+    def __init__(self, start_state, task, domain, scaffold="all", problem_fact_field='equation'):
         self.start_state = ProblemState(start_state)
         self.task = task
         self.domain = domain
         self.scaffold = scaffold
+        self.problem_fact_field = problem_fact_field
 
     def get_expected_effects(self, state):
         # NOTE: Momin's version sorted by y value, (which Danny got rid so that bounds could,
@@ -146,7 +147,7 @@ class HTNCognitiveModel:
             if value['id'] == 'done' or 'label' in value['id']:
                 continue
             
-            if value['id'] != 'equation' and value['locked']:
+            if value['id'] != self.problem_fact_field and value['locked']:
                 answers.append(Fact(field=value['id'], value=value['value'], answer=value['locked']))
             else:
                 fact_state = fact_state & Fact(field=value['id'], value=value['value'], answer=False)
@@ -212,6 +213,7 @@ class ApprenticeTutor(TutorEnvBase):
                      **kwargs):
         super().__init__(**kwargs)        
 
+        self.problem_fact_field = 'equation'
         self.default_domain = domain
         self.default_scaffold = scaffold
         self.include_obj_bounds = include_obj_bounds
@@ -237,6 +239,123 @@ class ApprenticeTutor(TutorEnvBase):
         #print("scaffold_options", self.scaffold_options)
         return self.scaffold_options
 
+    def _extract_fact_field(self, condition):
+        if isinstance(condition, Fact):
+            field_name = condition.get('field')
+            if isinstance(field_name, str):
+                return field_name
+        elif isinstance(condition, (AND, OR)):
+            for sub_condition in condition:
+                field_name = self._extract_fact_field(sub_condition)
+                if field_name:
+                    return field_name
+        return None
+
+    def _determine_problem_fact_field(self):
+        meta_key = '__problem_fact_field__'
+        field_name = None
+
+        if isinstance(self.domain_model.get(meta_key), str):
+            field_name = self.domain_model.pop(meta_key)
+
+        if field_name is None:
+            solve_method = self.domain_model.get('solve')
+            if solve_method is not None:
+                for precond in solve_method.preconditions:
+                    field_name = self._extract_fact_field(precond)
+                    if field_name:
+                        break
+
+        if not field_name:
+            field_name = getattr(self, 'problem_fact_field', 'equation')
+
+        print(f"[ApprenticeTutor] Using problem fact field '{field_name}'")
+        return field_name
+
+    def _collect_state_overrides(self, initial_problem):
+        overrides = {}
+        if isinstance(initial_problem, dict):
+            for key in ('state_overrides', 'state', 'state_values'):
+                values = initial_problem.get(key)
+                if isinstance(values, dict):
+                    overrides.update(values)
+            explicit = initial_problem.get(self.problem_fact_field)
+            if explicit is not None:
+                overrides.setdefault(self.problem_fact_field, explicit)
+        return overrides
+
+    def _infer_problem_fact_value_from_text(self, initial_problem):
+        if isinstance(initial_problem, dict):
+            problem_text = (initial_problem.get('prompt')
+                            or initial_problem.get('problem')
+                            or initial_problem.get('text')
+                            or initial_problem.get('description')
+                            or initial_problem.get('problem_name'))
+        else:
+            problem_text = initial_problem
+
+        if not isinstance(problem_text, str):
+            return problem_text
+
+        normalized = problem_text.strip().lower()
+        if self.problem_fact_field == 'triangle_type':
+            if normalized.startswith('right'):
+                return 'Right'
+            if normalized.startswith(('asa', 'aas')) or 'ssa' in normalized:
+                return 'Sines'
+            if normalized.startswith(('sas', 'sss')):
+                return 'Cosines'
+            if normalized.startswith('sim'):
+                return 'Similarity'
+            if normalized.startswith('area'):
+                return 'Area'
+            print(f"[ApprenticeTutor] Unable to infer triangle_type from '{problem_text}'")
+            return ''
+
+        return problem_text
+
+    def _apply_state_overrides(self, state, overrides):
+        for field, override in overrides.items():
+            if field not in state:
+                print(f"[ApprenticeTutor] Skipping override for missing field '{field}'")
+                continue
+
+            if isinstance(override, dict):
+                if 'value' in override:
+                    state[field]['value'] = override['value']
+                if 'locked' in override:
+                    state[field]['locked'] = override['locked']
+                for attr in ('x', 'y', 'width', 'height', 'id', 'type'):
+                    if attr in override:
+                        state[field][attr] = override[attr]
+            else:
+                state[field]['value'] = override
+
+    def _initialize_problem_state_field(self, state, initial_problem):
+        overrides = self._collect_state_overrides(initial_problem)
+        root_value = overrides.pop(self.problem_fact_field, None)
+        if root_value is None:
+            root_value = self._infer_problem_fact_value_from_text(initial_problem)
+
+        if root_value is None:
+            root_value = ""
+
+        if self.problem_fact_field not in state:
+            state[self.problem_fact_field] = {'type': 'TextField', 'value': "", 'locked': True}
+
+        state[self.problem_fact_field]['value'] = root_value
+        state[self.problem_fact_field]['locked'] = True
+
+        self._apply_state_overrides(state, overrides)
+        print(f"[ApprenticeTutor] Initialized '{self.problem_fact_field}' with '{root_value}'")
+
+    def _resolve_problem_label(self, initial_problem):
+        if isinstance(initial_problem, dict):
+            for key in ('problem_name', 'name', 'prompt', 'problem', 'text', 'description'):
+                if key in initial_problem and initial_problem[key]:
+                    return initial_problem[key]
+        return initial_problem
+
     def _blank_state(self):
         current_dir = Path(__file__).parent.parent
 
@@ -255,7 +374,7 @@ class ApprenticeTutor(TutorEnvBase):
 
         # assert field_names.index('done') == len(field_names)-1
 
-        state: dict = { 'equation' : {'y': 10, 'locked': True,  **field_params}}
+        state: dict = {self.problem_fact_field: {'y': 10, 'locked': True,  **field_params}}
         row_count: dict[str, int] = {'factor_1_b': 1, 'factor_2_b': 1, 'sum_factor': 1, 'sum_c': 1}
         for idx, field in enumerate(field_names):            
             if field == 'done':
@@ -281,10 +400,10 @@ class ApprenticeTutor(TutorEnvBase):
             state[key]['id'] = key        
 
         self.possible_selections = [x.name for x in self.domain_model['solve'].subtasks[0]]
-        self.possible_args = ['equation', *self.possible_selections[:-2]]
+        self.possible_args = [self.problem_fact_field, *self.possible_selections[:-2]]
 
         # Check that we haven't changed the field
-        # state_ord_fieldnames = [x for x in state.keys() if x != 'equation' and 'label' not in x]
+        # state_ord_fieldnames = [x for x in state.keys() if x != self.problem_fact_field and 'label' not in x]
         # assert state_ord_fieldnames == field_names
 
         return ProblemState(state)
@@ -311,6 +430,7 @@ class ApprenticeTutor(TutorEnvBase):
 
         self.domain = domain
         self.domain_model = deepcopy(domain_model)
+        self.problem_fact_field = self._determine_problem_fact_field()
         self._resolve_scaffold_options()
         if(scaffold == "first"):
             scaffold = list(self.scaffold_options)[0]
@@ -322,9 +442,14 @@ class ApprenticeTutor(TutorEnvBase):
         state = self._blank_state()
         state = self._filter_state(state)
 
-        self.problem_name = f"{domain}/{initial_problem}"
+        problem_label = self._resolve_problem_label(initial_problem)
+        if not isinstance(problem_label, str):
+            problem_label = str(problem_label)
+
+        self.problem_name = f"{domain}/{problem_label}"
         self.problem = initial_problem
-        state['equation']['value'] = self.problem
+        self._initialize_problem_state_field(state, initial_problem)
+        print("INITIAL PROBLEM:", state)
         self.start_state = ProblemState(state)
     
     def set_random_problem(self, domain=None, scaffold="undef"):
@@ -346,8 +471,8 @@ class ApprenticeTutor(TutorEnvBase):
 
     def create_htn_model(self, state):
         curr_state = state.copy()
-        task = [Task(head=('solve','equation'), primitive=False)]
-        return HTNCognitiveModel(curr_state, task, self.domain_model, scaffold=self.scaffold)
+        task = [Task(head=('solve', self.problem_fact_field), primitive=False)]
+        return HTNCognitiveModel(curr_state, task, self.domain_model, scaffold=self.scaffold, problem_fact_field=self.problem_fact_field)
     
     def get_possible_selections(self):
         return self.possible_selections
