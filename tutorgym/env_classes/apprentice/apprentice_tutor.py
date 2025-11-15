@@ -26,7 +26,7 @@ def make_next_state(state, action, reward=1):
     selection, action_type, inp = action.as_tuple()
     if(action_type == "UpdateTextField" or action_type == "input change"):
         next_state[selection] = next_state.objs.get(selection, {})
-        next_state[selection]['value'] = inp
+        next_state[selection]['value'] = "" if inp is None else str(inp)
         if(reward == 1):
             next_state[selection]['locked'] = True
         else:
@@ -239,6 +239,14 @@ class ApprenticeTutor(TutorEnvBase):
         #print("scaffold_options", self.scaffold_options)
         return self.scaffold_options
 
+    @staticmethod
+    def _ensure_str(value, fallback=""):
+        if value is None:
+            return fallback
+        if isinstance(value, str):
+            return str(value)
+        return str(value)
+
     def _extract_fact_field(self, condition):
         if isinstance(condition, Fact):
             field_name = condition.get('field')
@@ -295,7 +303,7 @@ class ApprenticeTutor(TutorEnvBase):
             problem_text = initial_problem
 
         if not isinstance(problem_text, str):
-            return problem_text
+            return self._ensure_str(problem_text)
 
         normalized = problem_text.strip().lower()
         if self.problem_fact_field == 'triangle_type':
@@ -312,7 +320,7 @@ class ApprenticeTutor(TutorEnvBase):
             print(f"[ApprenticeTutor] Unable to infer triangle_type from '{problem_text}'")
             return ''
 
-        return problem_text
+        return self._ensure_str(problem_text)
 
     def _apply_state_overrides(self, state, overrides):
         for field, override in overrides.items():
@@ -322,14 +330,17 @@ class ApprenticeTutor(TutorEnvBase):
 
             if isinstance(override, dict):
                 if 'value' in override:
-                    state[field]['value'] = override['value']
+                    state[field]['value'] = self._ensure_str(override['value'])
                 if 'locked' in override:
                     state[field]['locked'] = override['locked']
                 for attr in ('x', 'y', 'width', 'height', 'id', 'type'):
                     if attr in override:
-                        state[field][attr] = override[attr]
+                        if attr in ('id', 'type'):
+                            state[field][attr] = self._ensure_str(override[attr])
+                        else:
+                            state[field][attr] = override[attr]
             else:
-                state[field]['value'] = override
+                state[field]['value'] = self._ensure_str(override)
 
     def _initialize_problem_state_field(self, state, initial_problem):
         overrides = self._collect_state_overrides(initial_problem)
@@ -343,7 +354,7 @@ class ApprenticeTutor(TutorEnvBase):
         if self.problem_fact_field not in state:
             state[self.problem_fact_field] = {'type': 'TextField', 'value': "", 'locked': True}
 
-        state[self.problem_fact_field]['value'] = root_value
+        state[self.problem_fact_field]['value'] = self._ensure_str(root_value)
         state[self.problem_fact_field]['locked'] = True
 
         self._apply_state_overrides(state, overrides)
@@ -353,8 +364,8 @@ class ApprenticeTutor(TutorEnvBase):
         if isinstance(initial_problem, dict):
             for key in ('problem_name', 'name', 'prompt', 'problem', 'text', 'description'):
                 if key in initial_problem and initial_problem[key]:
-                    return initial_problem[key]
-        return initial_problem
+                    return self._ensure_str(initial_problem[key])
+        return self._ensure_str(initial_problem)
 
     def _blank_state(self):
         current_dir = Path(__file__).parent.parent
@@ -394,10 +405,11 @@ class ApprenticeTutor(TutorEnvBase):
                         label_elem = soup.find(id=field).find_previous_sibling('p')
                 
                 label_text = label_elem.text if label_elem else field
+                label_text = self._ensure_str(label_text)
                 state[f'label_of_{field}'] = {'x': 0, 'y': 10 + (idx + 1) * 100, 'value': label_text, **label_params}
                 state[field] = {'x': 200, 'y': 10 + (idx + 1) * 100, 'locked': False,  **field_params}
         for key, value in state.items():
-            state[key]['id'] = key        
+            state[key]['id'] = self._ensure_str(key)        
 
         self.possible_selections = [x.name for x in self.domain_model['solve'].subtasks[0]]
         self.possible_args = [self.problem_fact_field, *self.possible_selections[:-2]]
@@ -423,14 +435,20 @@ class ApprenticeTutor(TutorEnvBase):
     def set_start_state(self, domain, initial_problem, scaffold="undef", **kwargs):
         from tutorgym.envs.apprentice.env_registry import ENVIRONMENTS
 
-        domain_model, problem_generator = ENVIRONMENTS[domain]
+        env_entry = ENVIRONMENTS[domain]
+        if len(env_entry) >= 3:
+            domain_model, problem_generator, problem_fact_field = env_entry[:3]
+        else:
+            domain_model, problem_generator = env_entry
+            problem_fact_field = None
 
         if(scaffold == "undef"):
             scaffold = self.default_scaffold
 
         self.domain = domain
         self.domain_model = deepcopy(domain_model)
-        self.problem_fact_field = self._determine_problem_fact_field()
+        provided_field = self._ensure_str(problem_fact_field) if problem_fact_field else None
+        self.problem_fact_field = provided_field or self._determine_problem_fact_field()
         self._resolve_scaffold_options()
         if(scaffold == "first"):
             scaffold = list(self.scaffold_options)[0]
@@ -464,7 +482,8 @@ class ApprenticeTutor(TutorEnvBase):
             domain = choice(domains)
 
         #print("domain", domain)
-        _, problem_generator = ENVIRONMENTS[domain]        
+        env_entry = ENVIRONMENTS[domain]
+        problem_generator = env_entry[1]        
 
         initial_problem = problem_generator()
         self.set_problem(domain, initial_problem, scaffold)

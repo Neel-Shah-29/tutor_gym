@@ -5,6 +5,7 @@ import colorama
 from colorama import init
 from pprint import pprint
 import json
+from pathlib import Path
 
 # init(autoreset=True)
 
@@ -95,11 +96,61 @@ class Trainer:
         self.train_end_callbacks = train_end_callbacks
 
 
+    def _canonicalize_str(self, value):
+        if not isinstance(value, str):
+            return value
+        try:
+            cleaned = value.encode('utf-8', 'surrogatepass').decode('utf-8', 'surrogatepass')
+        except Exception:
+            cleaned = str(value)
+        return cleaned
+
+    def _json_clone(self, obj):
+        try:
+            return json.loads(json.dumps(obj, ensure_ascii=False))
+        except (TypeError, ValueError):
+            return obj
+
+    def _sanitize_structure(self, obj):
+        if isinstance(obj, str):
+            return self._canonicalize_str(obj)
+        if isinstance(obj, dict):
+            return {self._sanitize_structure(k): self._sanitize_structure(v) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [self._sanitize_structure(x) for x in obj]
+        if isinstance(obj, tuple):
+            return tuple(self._sanitize_structure(x) for x in obj)
+        return obj
+
+    def _sanitize_problem_state(self, state: ProblemState) -> ProblemState:
+        objs = self._sanitize_structure(state.objs)
+        annotations = self._sanitize_structure(state.annotations)
+        if objs is state.objs and annotations is state.annotations:
+            return state
+        return ProblemState(objs, [*state.action_hist], **annotations)
+
+    def _sanitize_action(self, action: Action) -> Action:
+        sel, act_type, inp = action.as_tuple()
+        sanitized_sel = self._sanitize_structure(sel)
+        sanitized_act_type = self._sanitize_structure(act_type)
+        sanitized_inp = self._sanitize_structure(inp)
+        sanitized_annotations = {
+            self._sanitize_structure(k): self._sanitize_structure(v)
+            for k, v in action.annotations.items()
+        }
+        return Action(
+            (sanitized_sel, sanitized_act_type, sanitized_inp),
+            **sanitized_annotations
+        )
+
     def _state_to_kwargs(self, state, is_start=None):
+        sanitized_state = self._sanitize_problem_state(state)
         if(self.agent_state_repr == "obj_dicts"):
-            s = {"state" : state.objs, **state.annotations, "is_start" : is_start,}
+            state_payload = self._json_clone(sanitized_state.objs)
+            anno_payload = self._json_clone(sanitized_state.annotations)
+            s = {"state" : state_payload, **anno_payload, "is_start" : is_start,}
         else:
-            s = {"state" : state, "is_start" : is_start}
+            s = {"state" : sanitized_state, "is_start" : is_start}
         return s
 
     def _to_train_kwargs(self, state, action, reward, is_demo=False, is_start=None):
@@ -107,8 +158,9 @@ class Trainer:
         s = self._state_to_kwargs(state, is_start)
 
         if(isinstance(action, Action)):
-            a = {"action" : action,
-                 **action.annotations}
+            sanitized_action = self._sanitize_action(action)
+            a = {"action" : sanitized_action,
+                 **sanitized_action.annotations}
         else:
             a = {"action" : action}
 
@@ -210,11 +262,39 @@ class Trainer:
         s,a,inp = action.as_tuple()
         self.logger.log_step(s, a, inp, outcome_kind, step_name=s, kcs=[s])
 
-        self.agent.train(
-            **self._to_train_kwargs(state, action, reward, 
+        train_kwargs = self._to_train_kwargs(state, action, reward, 
              is_start=is_start,
              is_demo=outcome_kind=="HINT")
-        )
+        try:
+            self.agent.train(**train_kwargs)
+        except AssertionError as exc:
+            if "PY_UNICODE_WCHAR_KIND unsupported" in str(exc):
+                extra = {}
+                for k,v in train_kwargs.items():
+                    if k in ("state","action","reward","is_demo","is_start"):
+                        continue
+                    try:
+                        json.dumps(v, ensure_ascii=False)
+                        extra[k] = v
+                    except TypeError:
+                        extra[k] = repr(v)
+                debug_payload = {
+                    "state": train_kwargs.get("state"),
+                    "action": str(train_kwargs.get("action")),
+                    "reward": train_kwargs.get("reward"),
+                    "is_demo": train_kwargs.get("is_demo"),
+                    "is_start": train_kwargs.get("is_start"),
+                    "extra": extra,
+                }
+                debug_file = Path("log_al") / "unicode_debug.json"
+                try:
+                    debug_file.parent.mkdir(exist_ok=True)
+                    with open(debug_file, "w", encoding="utf-8") as fh:
+                        json.dump(debug_payload, fh, ensure_ascii=False, indent=2)
+                    print(f"[Trainer] Wrote unicode debug snapshot to {debug_file}")
+                except Exception as log_exc:
+                    print(f"[Trainer] Failed to write unicode debug snapshot: {log_exc}")
+            raise
         self.print_outcome(conv_action, outcome_kind)
 
         # Change the state by applying the action

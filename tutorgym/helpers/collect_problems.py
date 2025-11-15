@@ -33,7 +33,8 @@ def collect_apprentice_problems(
 
         if clean_domain not in ENVIRONMENTS:
             raise ValueError(f"Environment {clean_domain} not found. Available environments: {list(ENVIRONMENTS.keys())}")
-        _, problem_generator = ENVIRONMENTS[clean_domain]
+        env_entry = ENVIRONMENTS[clean_domain]
+        problem_generator = env_entry[1]
 
         n_prob = _resolve_n_domain_probs(domain, problems_per_domain)
 

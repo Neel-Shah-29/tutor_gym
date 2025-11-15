@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
             agent_args = {
                 # "function_set": ['AcrossMultiply','Multiply', 'Add'],
-                "function_set": ['classify_triangle'],
+                "function_set": ['apply_pythagorean'],
                 "feature_set": ['Equals'],
                 "planner":'set_chaining',
                 "explanation_choice" : "least_operations",
