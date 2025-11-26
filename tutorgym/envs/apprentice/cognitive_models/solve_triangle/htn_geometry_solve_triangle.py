@@ -388,6 +388,7 @@ def report_solution(init_value):
 # Domain
 # ----------------------
 Domain = {
+    "__intermediate_hints__": None,  # populated below
     'done': Operator(head=('done', V('kc')),
                      precondition=[Fact(start=True)],
                      effects=[Fact(field='done', value=((re.compile('x'),),), kc=V('kc'), answer=True)],
@@ -589,6 +590,8 @@ def htn_geometry_solve_triangle_intermediate_hints():
 def htn_geometry_solve_triangle_studymaterial():
     return studymaterial.get("geometry_solve_triangle", [])
 
+# Populate meta hints for downstream consumers (e.g., NLP-guided demos).
+Domain["__intermediate_hints__"] = htn_geometry_solve_triangle_intermediate_hints()
 
 # htn_loaded_models.register(HTNCognitiveModel(
 #     'htn_geometry',

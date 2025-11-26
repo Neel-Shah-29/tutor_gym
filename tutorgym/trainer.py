@@ -46,6 +46,7 @@ class Trainer:
                  train_end_callbacks = [],
                  agent_action_repr = "action",
                  agent_state_repr = "obj_dicts",
+                 hint_llm_call=None,
                  **kwargs):
         self.agent = agent
         self.env = env
@@ -64,6 +65,7 @@ class Trainer:
         self.total_hints = 0
         self.agent_action_repr = agent_action_repr
         self.agent_state_repr = agent_state_repr
+        self.hint_llm_call = hint_llm_call
 
         if('problem_set' not in kwargs and
            'n_problems' not in kwargs and 
@@ -265,6 +267,25 @@ class Trainer:
         train_kwargs = self._to_train_kwargs(state, action, reward, 
              is_start=is_start,
              is_demo=outcome_kind=="HINT")
+        if outcome_kind == "HINT":
+            hint_txt = None
+            if isinstance(action, Action):
+                hint_txt = action.annotations.get("hint")
+            hint_precond = None
+            if hint_txt:
+                try:
+                    from AL_Core.apprentice.agents.cre_agents.hint_nlp import interpret_hint, interpret_hint_with_llm
+                    if self.hint_llm_call:
+                        hint_precond = interpret_hint_with_llm(state, action, hint_txt, self.hint_llm_call)
+                    else:
+                        hint_precond = interpret_hint(state, action, hint_txt)
+                    if isinstance(action, Action):
+                        action.annotations["hint_precond"] = hint_precond
+                        train_kwargs["action"] = self._sanitize_action(action)
+                except Exception as exc:
+                    print(f"[Trainer] hint interpretation failed: {exc}")
+            if hint_precond:
+                train_kwargs["hint_precond"] = hint_precond
         try:
             self.agent.train(**train_kwargs)
         except AssertionError as exc:

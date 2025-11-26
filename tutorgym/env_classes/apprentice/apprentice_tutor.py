@@ -122,9 +122,30 @@ class HTNCognitiveModel:
         self.problem_fact_field = problem_fact_field
 
     def get_expected_effects(self, state):
+        def task_order_for_state():
+            """Return an ordered list of task names that matches the current branch."""
+            root_val = str(state.objs.get(self.problem_fact_field, {}).get('value', '')).lower()
+            marker = {
+                'right': 'apply_pythagorean',
+                'sines': 'resolve_ssa_ambiguity',
+                'cosines': 'compute_unknown_by_cosine',
+                'similarity': 'map_correspondence',
+                'area': 'select_area_formula',
+            }.get(root_val)
+
+            subtasks = getattr(self.domain.get('solve'), 'subtasks', []) or []
+            for branch in subtasks:
+                names = [task.name for task in branch if task.name != 'done']
+                if marker and marker in names:
+                    return names
+            if subtasks:
+                return [task.name for task in subtasks[0] if task.name != 'done']
+            return []
+
+        order = {name: i for i, name in enumerate(task_order_for_state())}
         # NOTE: Momin's version sorted by y value, (which Danny got rid so that bounds could,
         #   be omitted in the state). Shouldn't cause bug sice dicts are ordered. 
-        state_list = list(state.objs.values());
+        state_list = sorted(list(state.objs.values()), key=lambda obj: order.get(obj['id'], len(order)))
         # state_list: list[dict] = sorted(list(state.objs.values()), key=lambda x: x['y'])
         fact_state: Fact = Fact(start=True)  
 
@@ -170,26 +191,42 @@ class HTNCognitiveModel:
                 # NOTE: Danny's kludgey fail-safe, not clear why planner
                 #  gets stuck in infinite loop here
                 i += 1
-                if(i == 10):
+                effect_order = order.get(effect.get('field')) if effect else None
+                answer_order = order.get(answer.get('field'))
+                # If planner is proposing an earlier step than the answered field, don't loop forever.
+                if i >= 3 or (effect_order is not None and answer_order is not None and effect_order < answer_order):
                     break
                     #raise RuntimeError()
 
                 # print("EEE", effect)
                 # print(fact_state)
                 next_effect, fact_state = plan.send((fact_state, False, effect))
+                if next_effect == effect:
+                    break
                 # if(next_effect and effect and next_effect == effect):
                 #     break
                 effect = next_effect
         
         expected: set[Fact] = set()
+        seen_effects: set[Fact] = set()
+        max_expected_iters = 50
 
         # while not fail:            
-        while True:            
+        iter_count = 0
+        while True:
+            iter_count += 1
+            if iter_count > max_expected_iters:
+                print(f"[ApprenticeTutor] Breaking expected-effect loop after {max_expected_iters} iterations.")
+                break
             effect, fact_state = plan.send((fact_state, False, expected))
             # print("EFFECT", effect)
             if not effect:
                 break
+            if effect in seen_effects:
+                # Avoid infinite loops if planner keeps proposing the same effect.
+                break
             expected.add(effect)
+            seen_effects.add(effect)
 
         return list(expected)
 
@@ -202,7 +239,21 @@ class HTNCognitiveModel:
         
         next_actions = []
         for effect in expected:
-            next_actions.append(effect_to_action(effect))
+            action = effect_to_action(effect)
+            hint_txt = None
+            try:
+                field = effect.get('field')
+                if field in getattr(self, "intermediate_hints", {}):
+                    hints = self.intermediate_hints[field]
+                    if isinstance(hints, (list, tuple)) and hints:
+                        hint_txt = hints[0]
+                    elif isinstance(hints, str):
+                        hint_txt = hints
+            except Exception:
+                pass
+            if hint_txt:
+                action = Action(action.as_tuple(), hint=hint_txt)
+            next_actions.append(action)
 
         return next_actions
 
@@ -381,7 +432,28 @@ class ApprenticeTutor(TutorEnvBase):
         label_params = {'type': 'Label', 'width' : 100, 'height' : 50, 'locked': True, }
         button_params = {'x': 0, 'type': 'Button', 'width' : 100, 'height' : 50, }
 
-        field_names = [x.name for x in self.domain_model['solve'].subtasks[0]]
+        solve_method = self.domain_model['solve']
+        field_names = []
+        seen_fields = set()
+
+        def append_unique(tasks):
+            for task in tasks:
+                name = task.name
+                if name == 'done' or name in seen_fields:
+                    continue
+                seen_fields.add(name)
+                field_names.append(name)
+
+        # Keep the ordering of the first branch, then append new fields from others.
+        if solve_method.subtasks:
+            append_unique(solve_method.subtasks[0])
+            for subtasks in solve_method.subtasks[1:]:
+                append_unique(subtasks)
+
+        # Always place the done button last if the domain defines it.
+        has_done = any(task.name == 'done' for sub in solve_method.subtasks for task in sub)
+        if has_done:
+            field_names.append('done')
 
         # assert field_names.index('done') == len(field_names)-1
 
@@ -411,8 +483,9 @@ class ApprenticeTutor(TutorEnvBase):
         for key, value in state.items():
             state[key]['id'] = self._ensure_str(key)        
 
-        self.possible_selections = [x.name for x in self.domain_model['solve'].subtasks[0]]
-        self.possible_args = [self.problem_fact_field, *self.possible_selections[:-2]]
+        self.possible_selections = field_names
+        eligible_args = [name for name in self.possible_selections if name not in ('report_solution', 'done')]
+        self.possible_args = [self.problem_fact_field, *eligible_args]
 
         # Check that we haven't changed the field
         # state_ord_fieldnames = [x for x in state.keys() if x != self.problem_fact_field and 'label' not in x]
@@ -447,6 +520,7 @@ class ApprenticeTutor(TutorEnvBase):
 
         self.domain = domain
         self.domain_model = deepcopy(domain_model)
+        self.intermediate_hints = self.domain_model.pop("__intermediate_hints__", {}) or {}
         provided_field = self._ensure_str(problem_fact_field) if problem_fact_field else None
         self.problem_fact_field = provided_field or self._determine_problem_fact_field()
         self._resolve_scaffold_options()

@@ -1,3 +1,13 @@
+import os
+import sys
+from pathlib import Path
+
+# Prefer the in-repo Cognitive-Rule-Engine over any installed version to avoid numba cache locator issues.
+repo_root = Path(__file__).resolve().parents[2]
+local_cre = repo_root / "Cognitive-Rule-Engine"
+if local_cre.exists():
+    sys.path.insert(0, str(local_cre))
+
 # from apprentice.agents.ModularAgent import ModularAgent
 # from apprentice.agents.RHS_LHS_Agent import RHS_LHS_Agent
 # from apprentice.agents.WhereWhenHowNoFoa import WhereWhenHowNoFoa
@@ -50,8 +60,8 @@ if __name__ == "__main__":
                     # 'DivideRound',
                     #, 'Add3', 'Add4', 'Add5', 
                     #, 'Multiply3', 'Multiply4', 'Multiply5', 
-                    # ]
-    feature_set = ['Equals']
+
+    # feature_set = ['Equals'] 
 
     
     logger_name = f'frac_{args.env_type}_{args.agent_type}_{args.n_fracs}frac_{args.n_problems}probs'
@@ -73,7 +83,7 @@ if __name__ == "__main__":
                 "where_learner": "mostspecific",
 
                 # For STAND
-                "when_learner": "decision_tree",
+                "when_learner": "STAND",
                 "which_learner": "when_prediction",
                 "action_chooser" : "max_which_utility",
                 "suggest_uncert_neg" : True,
