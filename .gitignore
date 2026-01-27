@@ -170,3 +170,5 @@ cython_debug/
 
 *.compl_prof
 *.pstats
+
+.cre_cache/
