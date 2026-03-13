@@ -1,0 +1,240 @@
+CRE Cache Lives Here:  /home/hadoop_neel/.cache/cre/cre_cache
+unicode_type
+unicode_type
+unicode_type
+[ApprenticeTutor] Initialized 'triangle_type' with 'Sines'
+INITIAL PROBLEM: {'triangle_type': {'locked': True, 'type': 'TextField', 'value': 'Sines', 'id': 'triangle_type'}, 'label_of_normalize_inputs': {'value': 'Normalize Inputs:', 'type': 'Label', 'locked': True, 'id': 'label_of_normalize_inputs'}, 'normalize_inputs': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'normalize_inputs'}, 'label_of_classify_triangle': {'value': 'Classify Triangle:', 'type': 'Label', 'locked': True, 'id': 'label_of_classify_triangle'}, 'classify_triangle': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'classify_triangle'}, 'label_of_apply_pythagorean': {'value': 'Apply Pythagorean:', 'type': 'Label', 'locked': True, 'id': 'label_of_apply_pythagorean'}, 'apply_pythagorean': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'apply_pythagorean'}, 'label_of_use_trig_ratios': {'value': 'Use Trig Ratios:', 'type': 'Label', 'locked': True, 'id': 'label_of_use_trig_ratios'}, 'use_trig_ratios': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'use_trig_ratios'}, 'label_of_consistency_checks': {'value': 'Consistency Checks:', 'type': 'Label', 'locked': True, 'id': 'label_of_consistency_checks'}, 'consistency_checks': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'consistency_checks'}, 'label_of_report_solution': {'value': 'Report Solution:', 'type': 'Label', 'locked': True, 'id': 'label_of_report_solution'}, 'report_solution': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'report_solution'}, 'label_of_resolve_ssa_ambiguity': {'value': 'Resolve SSA Ambiguity:', 'type': 'Label', 'locked': True, 'id': 'label_of_resolve_ssa_ambiguity'}, 'resolve_ssa_ambiguity': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'resolve_ssa_ambiguity'}, 'label_of_compute_missing_angles': {'value': 'Compute Missing Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_angles'}, 'compute_missing_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_angles'}, 'label_of_compute_missing_sides': {'value': 'Compute Missing Sides:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_sides'}, 'compute_missing_sides': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_sides'}, 'label_of_compute_unknown_by_cosine': {'value': 'Compute Unknown By Cosine:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_unknown_by_cosine'}, 'compute_unknown_by_cosine': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_unknown_by_cosine'}, 'label_of_backfill_with_sines_if_needed': {'value': 'Backfill With Sines If Needed:', 'type': 'Label', 'locked': True, 'id': 'label_of_backfill_with_sines_if_needed'}, 'backfill_with_sines_if_needed': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'backfill_with_sines_if_needed'}, 'label_of_map_correspondence': {'value': 'Map Correspondence:', 'type': 'Label', 'locked': True, 'id': 'label_of_map_correspondence'}, 'map_correspondence': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'map_correspondence'}, 'label_of_scale_sides_angles': {'value': 'Scale Sides/Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_scale_sides_angles'}, 'scale_sides_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'scale_sides_angles'}, 'label_of_select_area_formula': {'value': 'Select Area Formula:', 'type': 'Label', 'locked': True, 'id': 'label_of_select_area_formula'}, 'select_area_formula': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'select_area_formula'}, 'label_of_compute_area': {'value': 'Compute Area:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_area'}, 'compute_area': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_area'}, 'done': {'type': 'Button', 'id': 'done'}}
+[ApprenticeTutor] Initialized 'triangle_type' with 'Right'
+INITIAL PROBLEM: {'triangle_type': {'locked': True, 'type': 'TextField', 'value': 'Right', 'id': 'triangle_type'}, 'label_of_normalize_inputs': {'value': 'Normalize Inputs:', 'type': 'Label', 'locked': True, 'id': 'label_of_normalize_inputs'}, 'normalize_inputs': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'normalize_inputs'}, 'label_of_classify_triangle': {'value': 'Classify Triangle:', 'type': 'Label', 'locked': True, 'id': 'label_of_classify_triangle'}, 'classify_triangle': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'classify_triangle'}, 'label_of_apply_pythagorean': {'value': 'Apply Pythagorean:', 'type': 'Label', 'locked': True, 'id': 'label_of_apply_pythagorean'}, 'apply_pythagorean': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'apply_pythagorean'}, 'label_of_use_trig_ratios': {'value': 'Use Trig Ratios:', 'type': 'Label', 'locked': True, 'id': 'label_of_use_trig_ratios'}, 'use_trig_ratios': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'use_trig_ratios'}, 'label_of_consistency_checks': {'value': 'Consistency Checks:', 'type': 'Label', 'locked': True, 'id': 'label_of_consistency_checks'}, 'consistency_checks': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'consistency_checks'}, 'label_of_report_solution': {'value': 'Report Solution:', 'type': 'Label', 'locked': True, 'id': 'label_of_report_solution'}, 'report_solution': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'report_solution'}, 'label_of_resolve_ssa_ambiguity': {'value': 'Resolve SSA Ambiguity:', 'type': 'Label', 'locked': True, 'id': 'label_of_resolve_ssa_ambiguity'}, 'resolve_ssa_ambiguity': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'resolve_ssa_ambiguity'}, 'label_of_compute_missing_angles': {'value': 'Compute Missing Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_angles'}, 'compute_missing_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_angles'}, 'label_of_compute_missing_sides': {'value': 'Compute Missing Sides:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_sides'}, 'compute_missing_sides': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_sides'}, 'label_of_compute_unknown_by_cosine': {'value': 'Compute Unknown By Cosine:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_unknown_by_cosine'}, 'compute_unknown_by_cosine': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_unknown_by_cosine'}, 'label_of_backfill_with_sines_if_needed': {'value': 'Backfill With Sines If Needed:', 'type': 'Label', 'locked': True, 'id': 'label_of_backfill_with_sines_if_needed'}, 'backfill_with_sines_if_needed': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'backfill_with_sines_if_needed'}, 'label_of_map_correspondence': {'value': 'Map Correspondence:', 'type': 'Label', 'locked': True, 'id': 'label_of_map_correspondence'}, 'map_correspondence': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'map_correspondence'}, 'label_of_scale_sides_angles': {'value': 'Scale Sides/Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_scale_sides_angles'}, 'scale_sides_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'scale_sides_angles'}, 'label_of_select_area_formula': {'value': 'Select Area Formula:', 'type': 'Label', 'locked': True, 'id': 'label_of_select_area_formula'}, 'select_area_formula': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'select_area_formula'}, 'label_of_compute_area': {'value': 'Compute Area:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_area'}, 'compute_area': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_area'}, 'done': {'type': 'Button', 'id': 'done'}}
+[47m[30mSTARTING PROBLEM solve_triangle/Right triangle: a=5, b=12[0m
+Equals Sel.locked False
+>> Skill_CXaHu(consistency_checks(a)) ('normalize_inputs', 'label_of_compute_area')
+------IMPL----- CREObjType True
+SklearnDecisionTree fit:: 0.986328 ms
+[44m[33mHINT: normalize_inputs -> OK [0m
+Equals Sel.locked False
+>> Skill_4UyaM(classify_triangle(a)) ('classify_triangle', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.058594 ms
+[44m[33mHINT: classify_triangle -> Sines [0m
+>> Skill_CXaHu(consistency_checks(a)) ('apply_pythagorean', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.804443 ms
+[44m[33mHINT: apply_pythagorean -> OK [0m
+>> Skill_CXaHu(consistency_checks(a)) ('use_trig_ratios', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.670410 ms
+[44m[33mHINT: use_trig_ratios -> OK [0m
+>> Skill_CXaHu(consistency_checks(a)) ('consistency_checks', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.703613 ms
+[44m[33mHINT: consistency_checks -> OK [0m
+Equals Sel.locked False
+>> Skill_CfvHH(Solution: ) ('report_solution',)
+SklearnDecisionTree fit:: 0.652344 ms
+[44m[33mHINT: report_solution -> Solution:  [0m
+>> Skill_jvmjJ(-1) ('done',)
+SklearnDecisionTree fit:: 0.658203 ms
+[44m[33mHINT: done -> -1 [0m
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Finished problem 1 of 15
+[ApprenticeTutor] Initialized 'triangle_type' with 'Similarity'
+INITIAL PROBLEM: {'triangle_type': {'locked': True, 'type': 'TextField', 'value': 'Similarity', 'id': 'triangle_type'}, 'label_of_normalize_inputs': {'value': 'Normalize Inputs:', 'type': 'Label', 'locked': True, 'id': 'label_of_normalize_inputs'}, 'normalize_inputs': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'normalize_inputs'}, 'label_of_classify_triangle': {'value': 'Classify Triangle:', 'type': 'Label', 'locked': True, 'id': 'label_of_classify_triangle'}, 'classify_triangle': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'classify_triangle'}, 'label_of_apply_pythagorean': {'value': 'Apply Pythagorean:', 'type': 'Label', 'locked': True, 'id': 'label_of_apply_pythagorean'}, 'apply_pythagorean': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'apply_pythagorean'}, 'label_of_use_trig_ratios': {'value': 'Use Trig Ratios:', 'type': 'Label', 'locked': True, 'id': 'label_of_use_trig_ratios'}, 'use_trig_ratios': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'use_trig_ratios'}, 'label_of_consistency_checks': {'value': 'Consistency Checks:', 'type': 'Label', 'locked': True, 'id': 'label_of_consistency_checks'}, 'consistency_checks': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'consistency_checks'}, 'label_of_report_solution': {'value': 'Report Solution:', 'type': 'Label', 'locked': True, 'id': 'label_of_report_solution'}, 'report_solution': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'report_solution'}, 'label_of_resolve_ssa_ambiguity': {'value': 'Resolve SSA Ambiguity:', 'type': 'Label', 'locked': True, 'id': 'label_of_resolve_ssa_ambiguity'}, 'resolve_ssa_ambiguity': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'resolve_ssa_ambiguity'}, 'label_of_compute_missing_angles': {'value': 'Compute Missing Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_angles'}, 'compute_missing_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_angles'}, 'label_of_compute_missing_sides': {'value': 'Compute Missing Sides:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_sides'}, 'compute_missing_sides': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_sides'}, 'label_of_compute_unknown_by_cosine': {'value': 'Compute Unknown By Cosine:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_unknown_by_cosine'}, 'compute_unknown_by_cosine': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_unknown_by_cosine'}, 'label_of_backfill_with_sines_if_needed': {'value': 'Backfill With Sines If Needed:', 'type': 'Label', 'locked': True, 'id': 'label_of_backfill_with_sines_if_needed'}, 'backfill_with_sines_if_needed': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'backfill_with_sines_if_needed'}, 'label_of_map_correspondence': {'value': 'Map Correspondence:', 'type': 'Label', 'locked': True, 'id': 'label_of_map_correspondence'}, 'map_correspondence': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'map_correspondence'}, 'label_of_scale_sides_angles': {'value': 'Scale Sides/Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_scale_sides_angles'}, 'scale_sides_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'scale_sides_angles'}, 'label_of_select_area_formula': {'value': 'Select Area Formula:', 'type': 'Label', 'locked': True, 'id': 'label_of_select_area_formula'}, 'select_area_formula': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'select_area_formula'}, 'label_of_compute_area': {'value': 'Compute Area:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_area'}, 'compute_area': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_area'}, 'done': {'type': 'Button', 'id': 'done'}}
+[47m[30mSTARTING PROBLEM solve_triangle/SIM: scale=3, AB=4[0m
+SklearnDecisionTree fit:: 0.677002 ms
+[42m[30mCORRECT: normalize_inputs -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CfvHH(Solution: ) ('report_solution',)
+SklearnDecisionTree fit:: 0.858887 ms
+[41m[30mINCORRECT: report_solution -> Solution:  arg_foci=[],how_help=Solution: [0m
+>> Skill_CXaHu(consistency_checks(a)) ('use_trig_ratios', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.747070 ms
+[41m[30mINCORRECT: use_trig_ratios -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_jvmjJ(-1) ('done',)
+SklearnDecisionTree fit:: 0.710693 ms
+[41m[30mINCORRECT: done -> -1 arg_foci=[],how_help=-1[0m
+SklearnDecisionTree fit:: 0.640137 ms
+[42m[30mCORRECT: classify_triangle -> Sines arg_foci=['label_of_compute_area'],how_help=classify_triangle(a.value)[0m
+>> Skill_CfvHH(Solution: ) ('report_solution',)
+SklearnDecisionTree fit:: 0.706299 ms
+[41m[30mINCORRECT: report_solution -> Solution:  arg_foci=[],how_help=Solution: [0m
+>> Skill_CXaHu(consistency_checks(a)) ('apply_pythagorean', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.833984 ms
+[41m[30mINCORRECT: apply_pythagorean -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('consistency_checks', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.810303 ms
+[41m[30mINCORRECT: consistency_checks -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+Equals Sel.locked False
+>> Skill_acClF(map_correspondence(a)) ('map_correspondence', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.645264 ms
+[44m[33mHINT: map_correspondence -> Map corresponding vertices (e.g., A→A') [0m
+>> Skill_CXaHu(consistency_checks(a)) ('scale_sides_angles', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.190186 ms
+[44m[33mHINT: scale_sides_angles -> OK [0m
+SklearnDecisionTree fit:: 0.889893 ms
+[42m[30mCORRECT: consistency_checks -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('apply_pythagorean', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.963623 ms
+[41m[30mINCORRECT: apply_pythagorean -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('use_trig_ratios', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.965332 ms
+[41m[30mINCORRECT: use_trig_ratios -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 0.729736 ms
+[44m[33mHINT: report_solution -> Solution:  [0m
+SklearnDecisionTree fit:: 0.713867 ms
+[44m[33mHINT: done -> -1 [0m
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Finished problem 2 of 15
+[ApprenticeTutor] Initialized 'triangle_type' with 'Similarity'
+INITIAL PROBLEM: {'triangle_type': {'locked': True, 'type': 'TextField', 'value': 'Similarity', 'id': 'triangle_type'}, 'label_of_normalize_inputs': {'value': 'Normalize Inputs:', 'type': 'Label', 'locked': True, 'id': 'label_of_normalize_inputs'}, 'normalize_inputs': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'normalize_inputs'}, 'label_of_classify_triangle': {'value': 'Classify Triangle:', 'type': 'Label', 'locked': True, 'id': 'label_of_classify_triangle'}, 'classify_triangle': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'classify_triangle'}, 'label_of_apply_pythagorean': {'value': 'Apply Pythagorean:', 'type': 'Label', 'locked': True, 'id': 'label_of_apply_pythagorean'}, 'apply_pythagorean': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'apply_pythagorean'}, 'label_of_use_trig_ratios': {'value': 'Use Trig Ratios:', 'type': 'Label', 'locked': True, 'id': 'label_of_use_trig_ratios'}, 'use_trig_ratios': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'use_trig_ratios'}, 'label_of_consistency_checks': {'value': 'Consistency Checks:', 'type': 'Label', 'locked': True, 'id': 'label_of_consistency_checks'}, 'consistency_checks': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'consistency_checks'}, 'label_of_report_solution': {'value': 'Report Solution:', 'type': 'Label', 'locked': True, 'id': 'label_of_report_solution'}, 'report_solution': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'report_solution'}, 'label_of_resolve_ssa_ambiguity': {'value': 'Resolve SSA Ambiguity:', 'type': 'Label', 'locked': True, 'id': 'label_of_resolve_ssa_ambiguity'}, 'resolve_ssa_ambiguity': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'resolve_ssa_ambiguity'}, 'label_of_compute_missing_angles': {'value': 'Compute Missing Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_angles'}, 'compute_missing_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_angles'}, 'label_of_compute_missing_sides': {'value': 'Compute Missing Sides:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_sides'}, 'compute_missing_sides': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_sides'}, 'label_of_compute_unknown_by_cosine': {'value': 'Compute Unknown By Cosine:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_unknown_by_cosine'}, 'compute_unknown_by_cosine': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_unknown_by_cosine'}, 'label_of_backfill_with_sines_if_needed': {'value': 'Backfill With Sines If Needed:', 'type': 'Label', 'locked': True, 'id': 'label_of_backfill_with_sines_if_needed'}, 'backfill_with_sines_if_needed': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'backfill_with_sines_if_needed'}, 'label_of_map_correspondence': {'value': 'Map Correspondence:', 'type': 'Label', 'locked': True, 'id': 'label_of_map_correspondence'}, 'map_correspondence': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'map_correspondence'}, 'label_of_scale_sides_angles': {'value': 'Scale Sides/Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_scale_sides_angles'}, 'scale_sides_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'scale_sides_angles'}, 'label_of_select_area_formula': {'value': 'Select Area Formula:', 'type': 'Label', 'locked': True, 'id': 'label_of_select_area_formula'}, 'select_area_formula': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'select_area_formula'}, 'label_of_compute_area': {'value': 'Compute Area:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_area'}, 'compute_area': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_area'}, 'done': {'type': 'Button', 'id': 'done'}}
+[47m[30mSTARTING PROBLEM solve_triangle/SIM: scale=2, AB=5[0m
+SklearnDecisionTree fit:: 0.972168 ms
+[42m[30mCORRECT: normalize_inputs -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_acClF(map_correspondence(a)) ('map_correspondence', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.703125 ms
+[41m[30mINCORRECT: map_correspondence -> Map corresponding vertices (e.g., A→A') arg_foci=['label_of_compute_area'],how_help=map_correspondence(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('scale_sides_angles', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.069092 ms
+[41m[30mINCORRECT: scale_sides_angles -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 0.664795 ms
+[42m[30mCORRECT: classify_triangle -> Sines arg_foci=['label_of_compute_area'],how_help=classify_triangle(a.value)[0m
+SklearnDecisionTree fit:: 0.750244 ms
+[42m[30mCORRECT: map_correspondence -> Map corresponding vertices (e.g., A→A') arg_foci=['label_of_compute_area'],how_help=map_correspondence(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('consistency_checks', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.093506 ms
+[41m[30mINCORRECT: consistency_checks -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CfvHH(Solution: ) ('report_solution',)
+SklearnDecisionTree fit:: 0.737793 ms
+[41m[30mINCORRECT: report_solution -> Solution:  arg_foci=[],how_help=Solution: [0m
+SklearnDecisionTree fit:: 1.124023 ms
+[42m[30mCORRECT: scale_sides_angles -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 1.355225 ms
+[42m[30mCORRECT: consistency_checks -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 0.933350 ms
+[42m[30mCORRECT: report_solution -> Solution:  arg_foci=[],how_help=Solution: [0m
+SklearnDecisionTree fit:: 0.963867 ms
+[42m[30mCORRECT: done -> -1 arg_foci=[],how_help=-1[0m
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Finished problem 3 of 15
+[ApprenticeTutor] Initialized 'triangle_type' with 'Similarity'
+INITIAL PROBLEM: {'triangle_type': {'locked': True, 'type': 'TextField', 'value': 'Similarity', 'id': 'triangle_type'}, 'label_of_normalize_inputs': {'value': 'Normalize Inputs:', 'type': 'Label', 'locked': True, 'id': 'label_of_normalize_inputs'}, 'normalize_inputs': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'normalize_inputs'}, 'label_of_classify_triangle': {'value': 'Classify Triangle:', 'type': 'Label', 'locked': True, 'id': 'label_of_classify_triangle'}, 'classify_triangle': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'classify_triangle'}, 'label_of_apply_pythagorean': {'value': 'Apply Pythagorean:', 'type': 'Label', 'locked': True, 'id': 'label_of_apply_pythagorean'}, 'apply_pythagorean': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'apply_pythagorean'}, 'label_of_use_trig_ratios': {'value': 'Use Trig Ratios:', 'type': 'Label', 'locked': True, 'id': 'label_of_use_trig_ratios'}, 'use_trig_ratios': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'use_trig_ratios'}, 'label_of_consistency_checks': {'value': 'Consistency Checks:', 'type': 'Label', 'locked': True, 'id': 'label_of_consistency_checks'}, 'consistency_checks': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'consistency_checks'}, 'label_of_report_solution': {'value': 'Report Solution:', 'type': 'Label', 'locked': True, 'id': 'label_of_report_solution'}, 'report_solution': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'report_solution'}, 'label_of_resolve_ssa_ambiguity': {'value': 'Resolve SSA Ambiguity:', 'type': 'Label', 'locked': True, 'id': 'label_of_resolve_ssa_ambiguity'}, 'resolve_ssa_ambiguity': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'resolve_ssa_ambiguity'}, 'label_of_compute_missing_angles': {'value': 'Compute Missing Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_angles'}, 'compute_missing_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_angles'}, 'label_of_compute_missing_sides': {'value': 'Compute Missing Sides:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_sides'}, 'compute_missing_sides': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_sides'}, 'label_of_compute_unknown_by_cosine': {'value': 'Compute Unknown By Cosine:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_unknown_by_cosine'}, 'compute_unknown_by_cosine': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_unknown_by_cosine'}, 'label_of_backfill_with_sines_if_needed': {'value': 'Backfill With Sines If Needed:', 'type': 'Label', 'locked': True, 'id': 'label_of_backfill_with_sines_if_needed'}, 'backfill_with_sines_if_needed': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'backfill_with_sines_if_needed'}, 'label_of_map_correspondence': {'value': 'Map Correspondence:', 'type': 'Label', 'locked': True, 'id': 'label_of_map_correspondence'}, 'map_correspondence': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'map_correspondence'}, 'label_of_scale_sides_angles': {'value': 'Scale Sides/Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_scale_sides_angles'}, 'scale_sides_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'scale_sides_angles'}, 'label_of_select_area_formula': {'value': 'Select Area Formula:', 'type': 'Label', 'locked': True, 'id': 'label_of_select_area_formula'}, 'select_area_formula': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'select_area_formula'}, 'label_of_compute_area': {'value': 'Compute Area:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_area'}, 'compute_area': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_area'}, 'done': {'type': 'Button', 'id': 'done'}}
+[47m[30mSTARTING PROBLEM solve_triangle/SIM: scale=4, AB=7[0m
+>> Skill_4UyaM(classify_triangle(a)) ('classify_triangle', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.868896 ms
+[41m[30mINCORRECT: classify_triangle -> Sines arg_foci=['label_of_compute_area'],how_help=classify_triangle(a.value)[0m
+SklearnDecisionTree fit:: 1.360840 ms
+[42m[30mCORRECT: normalize_inputs -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 0.939453 ms
+[42m[30mCORRECT: classify_triangle -> Sines arg_foci=['label_of_compute_area'],how_help=classify_triangle(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('scale_sides_angles', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.282227 ms
+[41m[30mINCORRECT: scale_sides_angles -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 0.916992 ms
+[42m[30mCORRECT: map_correspondence -> Map corresponding vertices (e.g., A→A') arg_foci=['label_of_compute_area'],how_help=map_correspondence(a.value)[0m
+>> Skill_jvmjJ(-1) ('done',)
+SklearnDecisionTree fit:: 0.735352 ms
+[41m[30mINCORRECT: done -> -1 arg_foci=[],how_help=-1[0m
+SklearnDecisionTree fit:: 1.170898 ms
+[42m[30mCORRECT: scale_sides_angles -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 1.157715 ms
+[42m[30mCORRECT: consistency_checks -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_jvmjJ(-1) ('done',)
+SklearnDecisionTree fit:: 0.730957 ms
+[41m[30mINCORRECT: done -> -1 arg_foci=[],how_help=-1[0m
+SklearnDecisionTree fit:: 0.763428 ms
+[42m[30mCORRECT: report_solution -> Solution:  arg_foci=[],how_help=Solution: [0m
+SklearnDecisionTree fit:: 0.758789 ms
+[42m[30mCORRECT: done -> -1 arg_foci=[],how_help=-1[0m
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Finished problem 4 of 15
+[ApprenticeTutor] Initialized 'triangle_type' with 'Right'
+INITIAL PROBLEM: {'triangle_type': {'locked': True, 'type': 'TextField', 'value': 'Right', 'id': 'triangle_type'}, 'label_of_normalize_inputs': {'value': 'Normalize Inputs:', 'type': 'Label', 'locked': True, 'id': 'label_of_normalize_inputs'}, 'normalize_inputs': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'normalize_inputs'}, 'label_of_classify_triangle': {'value': 'Classify Triangle:', 'type': 'Label', 'locked': True, 'id': 'label_of_classify_triangle'}, 'classify_triangle': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'classify_triangle'}, 'label_of_apply_pythagorean': {'value': 'Apply Pythagorean:', 'type': 'Label', 'locked': True, 'id': 'label_of_apply_pythagorean'}, 'apply_pythagorean': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'apply_pythagorean'}, 'label_of_use_trig_ratios': {'value': 'Use Trig Ratios:', 'type': 'Label', 'locked': True, 'id': 'label_of_use_trig_ratios'}, 'use_trig_ratios': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'use_trig_ratios'}, 'label_of_consistency_checks': {'value': 'Consistency Checks:', 'type': 'Label', 'locked': True, 'id': 'label_of_consistency_checks'}, 'consistency_checks': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'consistency_checks'}, 'label_of_report_solution': {'value': 'Report Solution:', 'type': 'Label', 'locked': True, 'id': 'label_of_report_solution'}, 'report_solution': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'report_solution'}, 'label_of_resolve_ssa_ambiguity': {'value': 'Resolve SSA Ambiguity:', 'type': 'Label', 'locked': True, 'id': 'label_of_resolve_ssa_ambiguity'}, 'resolve_ssa_ambiguity': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'resolve_ssa_ambiguity'}, 'label_of_compute_missing_angles': {'value': 'Compute Missing Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_angles'}, 'compute_missing_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_angles'}, 'label_of_compute_missing_sides': {'value': 'Compute Missing Sides:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_sides'}, 'compute_missing_sides': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_sides'}, 'label_of_compute_unknown_by_cosine': {'value': 'Compute Unknown By Cosine:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_unknown_by_cosine'}, 'compute_unknown_by_cosine': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_unknown_by_cosine'}, 'label_of_backfill_with_sines_if_needed': {'value': 'Backfill With Sines If Needed:', 'type': 'Label', 'locked': True, 'id': 'label_of_backfill_with_sines_if_needed'}, 'backfill_with_sines_if_needed': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'backfill_with_sines_if_needed'}, 'label_of_map_correspondence': {'value': 'Map Correspondence:', 'type': 'Label', 'locked': True, 'id': 'label_of_map_correspondence'}, 'map_correspondence': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'map_correspondence'}, 'label_of_scale_sides_angles': {'value': 'Scale Sides/Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_scale_sides_angles'}, 'scale_sides_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'scale_sides_angles'}, 'label_of_select_area_formula': {'value': 'Select Area Formula:', 'type': 'Label', 'locked': True, 'id': 'label_of_select_area_formula'}, 'select_area_formula': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'select_area_formula'}, 'label_of_compute_area': {'value': 'Compute Area:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_area'}, 'compute_area': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_area'}, 'done': {'type': 'Button', 'id': 'done'}}
+[47m[30mSTARTING PROBLEM solve_triangle/Right triangle: a=3, b=4[0m
+>> Skill_CXaHu(consistency_checks(a)) ('consistency_checks', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.203125 ms
+[41m[30mINCORRECT: consistency_checks -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('scale_sides_angles', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.452881 ms
+[41m[30mINCORRECT: scale_sides_angles -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 1.310303 ms
+[42m[30mCORRECT: normalize_inputs -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('apply_pythagorean', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.561768 ms
+[41m[30mINCORRECT: apply_pythagorean -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 1.865479 ms
+[42m[30mCORRECT: classify_triangle -> Sines arg_foci=['label_of_compute_area'],how_help=classify_triangle(a.value)[0m
+>> Skill_acClF(map_correspondence(a)) ('map_correspondence', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.736816 ms
+[41m[30mINCORRECT: map_correspondence -> Map corresponding vertices (e.g., A→A') arg_foci=['label_of_compute_area'],how_help=map_correspondence(a.value)[0m
+SklearnDecisionTree fit:: 1.431885 ms
+[44m[33mHINT: apply_pythagorean -> OK [0m
+>> Skill_CXaHu(consistency_checks(a)) ('consistency_checks', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.345459 ms
+[41m[30mINCORRECT: consistency_checks -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('scale_sides_angles', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.391113 ms
+[41m[30mINCORRECT: scale_sides_angles -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 1.480957 ms
+[42m[30mCORRECT: use_trig_ratios -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 1.438965 ms
+[42m[30mCORRECT: consistency_checks -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('scale_sides_angles', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.491943 ms
+[41m[30mINCORRECT: scale_sides_angles -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 0.805420 ms
+[42m[30mCORRECT: report_solution -> Solution:  arg_foci=[],how_help=Solution: [0m
+SklearnDecisionTree fit:: 0.787842 ms
+[42m[30mCORRECT: done -> -1 arg_foci=[],how_help=-1[0m
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Finished problem 5 of 15
+[ApprenticeTutor] Initialized 'triangle_type' with 'Sines'
+INITIAL PROBLEM: {'triangle_type': {'locked': True, 'type': 'TextField', 'value': 'Sines', 'id': 'triangle_type'}, 'label_of_normalize_inputs': {'value': 'Normalize Inputs:', 'type': 'Label', 'locked': True, 'id': 'label_of_normalize_inputs'}, 'normalize_inputs': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'normalize_inputs'}, 'label_of_classify_triangle': {'value': 'Classify Triangle:', 'type': 'Label', 'locked': True, 'id': 'label_of_classify_triangle'}, 'classify_triangle': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'classify_triangle'}, 'label_of_apply_pythagorean': {'value': 'Apply Pythagorean:', 'type': 'Label', 'locked': True, 'id': 'label_of_apply_pythagorean'}, 'apply_pythagorean': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'apply_pythagorean'}, 'label_of_use_trig_ratios': {'value': 'Use Trig Ratios:', 'type': 'Label', 'locked': True, 'id': 'label_of_use_trig_ratios'}, 'use_trig_ratios': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'use_trig_ratios'}, 'label_of_consistency_checks': {'value': 'Consistency Checks:', 'type': 'Label', 'locked': True, 'id': 'label_of_consistency_checks'}, 'consistency_checks': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'consistency_checks'}, 'label_of_report_solution': {'value': 'Report Solution:', 'type': 'Label', 'locked': True, 'id': 'label_of_report_solution'}, 'report_solution': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'report_solution'}, 'label_of_resolve_ssa_ambiguity': {'value': 'Resolve SSA Ambiguity:', 'type': 'Label', 'locked': True, 'id': 'label_of_resolve_ssa_ambiguity'}, 'resolve_ssa_ambiguity': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'resolve_ssa_ambiguity'}, 'label_of_compute_missing_angles': {'value': 'Compute Missing Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_angles'}, 'compute_missing_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_angles'}, 'label_of_compute_missing_sides': {'value': 'Compute Missing Sides:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_sides'}, 'compute_missing_sides': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_sides'}, 'label_of_compute_unknown_by_cosine': {'value': 'Compute Unknown By Cosine:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_unknown_by_cosine'}, 'compute_unknown_by_cosine': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_unknown_by_cosine'}, 'label_of_backfill_with_sines_if_needed': {'value': 'Backfill With Sines If Needed:', 'type': 'Label', 'locked': True, 'id': 'label_of_backfill_with_sines_if_needed'}, 'backfill_with_sines_if_needed': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'backfill_with_sines_if_needed'}, 'label_of_map_correspondence': {'value': 'Map Correspondence:', 'type': 'Label', 'locked': True, 'id': 'label_of_map_correspondence'}, 'map_correspondence': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'map_correspondence'}, 'label_of_scale_sides_angles': {'value': 'Scale Sides/Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_scale_sides_angles'}, 'scale_sides_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'scale_sides_angles'}, 'label_of_select_area_formula': {'value': 'Select Area Formula:', 'type': 'Label', 'locked': True, 'id': 'label_of_select_area_formula'}, 'select_area_formula': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'select_area_formula'}, 'label_of_compute_area': {'value': 'Compute Area:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_area'}, 'compute_area': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_area'}, 'done': {'type': 'Button', 'id': 'done'}}
+[47m[30mSTARTING PROBLEM solve_triangle/ASA: A=25, C=85, a=9[0m
+SklearnDecisionTree fit:: 1.581299 ms
+[42m[30mCORRECT: normalize_inputs -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 0.769043 ms
+[42m[30mCORRECT: classify_triangle -> Sines arg_foci=['label_of_compute_area'],how_help=classify_triangle(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('use_trig_ratios', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.595459 ms
+[41m[30mINCORRECT: use_trig_ratios -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('apply_pythagorean', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.543457 ms
+[41m[30mINCORRECT: apply_pythagorean -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_acClF(map_correspondence(a)) ('map_correspondence', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.793945 ms
+[41m[30mINCORRECT: map_correspondence -> Map corresponding vertices (e.g., A→A') arg_foci=['label_of_compute_area'],how_help=map_correspondence(a.value)[0m
+Equals Sel.locked False
+>> Skill_47ucd(resolve_ssa_ambiguity(a)) ('resolve_ssa_ambiguity', 'label_of_compute_area')
+SklearnDecisionTree fit:: 0.670166 ms
+[44m[33mHINT: resolve_ssa_ambiguity -> unique [0m
+>> Skill_CXaHu(consistency_checks(a)) ('compute_missing_angles', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.545166 ms
+[44m[33mHINT: compute_missing_angles -> OK [0m
+>> Skill_CfvHH(Solution: ) ('report_solution',)
+SklearnDecisionTree fit:: 0.881348 ms
+[41m[30mINCORRECT: report_solution -> Solution:  arg_foci=[],how_help=Solution: [0m
+>> Skill_CXaHu(consistency_checks(a)) ('compute_missing_sides', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.777588 ms
+[44m[33mHINT: compute_missing_sides -> OK [0m
+>> Skill_CfvHH(Solution: ) ('report_solution',)
+SklearnDecisionTree fit:: 0.821289 ms
+[41m[30mINCORRECT: report_solution -> Solution:  arg_foci=[],how_help=Solution: [0m
+SklearnDecisionTree fit:: 1.771240 ms
+[44m[33mHINT: consistency_checks -> OK [0m
+>> Skill_CXaHu(consistency_checks(a)) ('use_trig_ratios', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.783447 ms
+[41m[30mINCORRECT: use_trig_ratios -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+>> Skill_CXaHu(consistency_checks(a)) ('apply_pythagorean', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.992188 ms
+[41m[30mINCORRECT: apply_pythagorean -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+SklearnDecisionTree fit:: 0.855469 ms
+[42m[30mCORRECT: report_solution -> Solution:  arg_foci=[],how_help=Solution: [0m
+SklearnDecisionTree fit:: 0.901611 ms
+[42m[30mCORRECT: done -> -1 arg_foci=[],how_help=-1[0m
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Finished problem 6 of 15
+[ApprenticeTutor] Initialized 'triangle_type' with 'Area'
+INITIAL PROBLEM: {'triangle_type': {'locked': True, 'type': 'TextField', 'value': 'Area', 'id': 'triangle_type'}, 'label_of_normalize_inputs': {'value': 'Normalize Inputs:', 'type': 'Label', 'locked': True, 'id': 'label_of_normalize_inputs'}, 'normalize_inputs': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'normalize_inputs'}, 'label_of_classify_triangle': {'value': 'Classify Triangle:', 'type': 'Label', 'locked': True, 'id': 'label_of_classify_triangle'}, 'classify_triangle': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'classify_triangle'}, 'label_of_apply_pythagorean': {'value': 'Apply Pythagorean:', 'type': 'Label', 'locked': True, 'id': 'label_of_apply_pythagorean'}, 'apply_pythagorean': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'apply_pythagorean'}, 'label_of_use_trig_ratios': {'value': 'Use Trig Ratios:', 'type': 'Label', 'locked': True, 'id': 'label_of_use_trig_ratios'}, 'use_trig_ratios': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'use_trig_ratios'}, 'label_of_consistency_checks': {'value': 'Consistency Checks:', 'type': 'Label', 'locked': True, 'id': 'label_of_consistency_checks'}, 'consistency_checks': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'consistency_checks'}, 'label_of_report_solution': {'value': 'Report Solution:', 'type': 'Label', 'locked': True, 'id': 'label_of_report_solution'}, 'report_solution': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'report_solution'}, 'label_of_resolve_ssa_ambiguity': {'value': 'Resolve SSA Ambiguity:', 'type': 'Label', 'locked': True, 'id': 'label_of_resolve_ssa_ambiguity'}, 'resolve_ssa_ambiguity': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'resolve_ssa_ambiguity'}, 'label_of_compute_missing_angles': {'value': 'Compute Missing Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_angles'}, 'compute_missing_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_angles'}, 'label_of_compute_missing_sides': {'value': 'Compute Missing Sides:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_missing_sides'}, 'compute_missing_sides': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_missing_sides'}, 'label_of_compute_unknown_by_cosine': {'value': 'Compute Unknown By Cosine:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_unknown_by_cosine'}, 'compute_unknown_by_cosine': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_unknown_by_cosine'}, 'label_of_backfill_with_sines_if_needed': {'value': 'Backfill With Sines If Needed:', 'type': 'Label', 'locked': True, 'id': 'label_of_backfill_with_sines_if_needed'}, 'backfill_with_sines_if_needed': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'backfill_with_sines_if_needed'}, 'label_of_map_correspondence': {'value': 'Map Correspondence:', 'type': 'Label', 'locked': True, 'id': 'label_of_map_correspondence'}, 'map_correspondence': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'map_correspondence'}, 'label_of_scale_sides_angles': {'value': 'Scale Sides/Angles:', 'type': 'Label', 'locked': True, 'id': 'label_of_scale_sides_angles'}, 'scale_sides_angles': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'scale_sides_angles'}, 'label_of_select_area_formula': {'value': 'Select Area Formula:', 'type': 'Label', 'locked': True, 'id': 'label_of_select_area_formula'}, 'select_area_formula': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'select_area_formula'}, 'label_of_compute_area': {'value': 'Compute Area:', 'type': 'Label', 'locked': True, 'id': 'label_of_compute_area'}, 'compute_area': {'locked': False, 'type': 'TextField', 'value': '', 'id': 'compute_area'}, 'done': {'type': 'Button', 'id': 'done'}}
+[47m[30mSTARTING PROBLEM solve_triangle/AREA: a=7, b=9, c=12[0m
+>> Skill_CXaHu(consistency_checks(a)) ('compute_missing_sides', 'label_of_compute_area')
+SklearnDecisionTree fit:: 1.943604 ms
+[41m[30mINCORRECT: compute_missing_sides -> OK arg_foci=['label_of_compute_area'],how_help=consistency_checks(a.value)[0m
+
+=== Running feedback_only ===
+Log folder: /home/hadoop_neel/TAIL Lab/tutor_gym/sandbox/geometry/log_al_feedback_only
+Command: /home/hadoop_neel/TAIL Lab/.venv/bin/python /home/hadoop_neel/TAIL Lab/tutor_gym/sandbox/geometry/run_al_copy_2.py --train --train-only --n-problems 15 --n-fracs 2 --when-learner sklearndecisiontree --num-incorrect-force-demo -1 --training-framework feedback_only --log-dir /home/hadoop_neel/TAIL Lab/tutor_gym/sandbox/geometry/log_al_feedback_only --unicode-wchar-patch
