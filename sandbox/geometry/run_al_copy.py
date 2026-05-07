@@ -270,7 +270,7 @@ if __name__ == "__main__":
             agent_args = dict(
                 function_set=['RipFloatValue','Add','Multiply','Subtract','ConvertNumerator'],
 
-                feature_set=['Equals'],
+                feature_set=['Equals'], ## remove this and check
                 planner='numba',
                 explanation_choice = "least_operations",
                 search_depth=3,

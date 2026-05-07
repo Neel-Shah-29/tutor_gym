@@ -172,3 +172,5 @@ cython_debug/
 *.pstats
 
 .cre_cache/
+.cache_test/
+logs_**

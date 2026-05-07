@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Aggregate raw DataShop logs from the three-framework geometry experiments."""
+"""Aggregate geometry logs across predicate-threshold sweep runs."""
 
 from __future__ import annotations
 
@@ -65,22 +65,29 @@ def parse_source_metadata(log_file: Path, framework_name: str) -> Dict[str, str]
     return metadata
 
 
+def parse_threshold_dir(path: Path) -> int:
+    name = path.name
+    if not name.startswith("threshold_"):
+        raise ValueError(f"Unrecognized threshold directory name: {name}")
+    return int(name.split("_", 1)[1])
+
+
 def main() -> None:
     script_dir = Path(__file__).resolve().parent
-    parser = argparse.ArgumentParser(description="Aggregate geometry logs from all 3 frameworks.")
+    parser = argparse.ArgumentParser(description="Aggregate geometry threshold-sweep logs.")
     parser.add_argument(
         "--log-root-dir",
-        default=str(script_dir / "log_al_3_frameworks"),
-        help="Root folder containing feedback_only, nl_hint_only, feedback_and_nl_hint subfolders.",
+        default=str(script_dir / "logs_predicate_threshold_experiments"),
+        help="Root folder containing threshold_<N>/framework_subdir log files.",
     )
     parser.add_argument(
         "--output-csv",
-        default=str(script_dir / "geometry_log_al_3_frameworks_aggregated.csv"),
+        default=str(script_dir / "geometry_threshold_sweep_aggregated.csv"),
         help="Output aggregated CSV path.",
     )
     parser.add_argument(
         "--output-tsv",
-        default=str(script_dir / "geometry_log_al_3_frameworks_aggregated.txt"),
+        default=str(script_dir / "geometry_threshold_sweep_aggregated.txt"),
         help="Output aggregated TSV path.",
     )
     args = parser.parse_args()
@@ -89,24 +96,30 @@ def main() -> None:
     output_csv = Path(args.output_csv).resolve()
     output_tsv = Path(args.output_tsv).resolve()
 
+    threshold_dirs = sorted(
+        [path for path in log_root_dir.iterdir() if path.is_dir() and path.name.startswith("threshold_")]
+    )
+    if not threshold_dirs:
+        raise RuntimeError(f"No threshold_* directories found under {log_root_dir}")
+
     rows: List[Dict[str, str]] = []
     base_fieldnames: List[str] | None = None
-    total_files = 0
 
-    for framework_name, subdir in FRAMEWORK_SUBDIRS:
-        framework_dir = log_root_dir / subdir
-        if not framework_dir.exists():
-            continue
-        log_files = sorted(framework_dir.glob("*.txt"))
-        total_files += len(log_files)
-        for log_file in log_files:
-            for row in iter_rows(log_file):
-                if base_fieldnames is None:
-                    base_fieldnames = list(row.keys())
-                row["Training Framework"] = framework_name
-                row["Source Log File"] = log_file.name
-                row.update(parse_source_metadata(log_file, framework_name))
-                rows.append(row)
+    for threshold_dir in threshold_dirs:
+        threshold = parse_threshold_dir(threshold_dir)
+        for framework_name, subdir in FRAMEWORK_SUBDIRS:
+            framework_dir = threshold_dir / subdir
+            if not framework_dir.exists():
+                continue
+            for log_file in sorted(framework_dir.glob("*.txt")):
+                for row in iter_rows(log_file):
+                    if base_fieldnames is None:
+                        base_fieldnames = list(row.keys())
+                    row["Training Framework"] = framework_name
+                    row["Predicate Threshold"] = str(threshold)
+                    row["Source Log File"] = log_file.name
+                    row.update(parse_source_metadata(log_file, framework_name))
+                    rows.append(row)
 
     if not rows or base_fieldnames is None:
         raise RuntimeError(f"No transaction rows found under {log_root_dir}")
@@ -114,6 +127,7 @@ def main() -> None:
     fieldnames = [
         *base_fieldnames,
         "Training Framework",
+        "Predicate Threshold",
         "Source Log File",
         "Agent Index",
         "Agent Seed",
@@ -123,7 +137,7 @@ def main() -> None:
     write_rows(output_csv, rows, fieldnames, delimiter=",")
     write_rows(output_tsv, rows, fieldnames, delimiter="\t")
 
-    print(f"Aggregated {len(rows)} rows from {total_files} files.")
+    print(f"Aggregated {len(rows)} rows from {len(threshold_dirs)} threshold settings.")
     print(f"CSV: {output_csv}")
     print(f"TSV: {output_tsv}")
 

@@ -67,6 +67,31 @@ class Trainer:
         self.agent_state_repr = agent_state_repr
         self.hint_llm_call = hint_llm_call
 
+        self.training_framework = str(kwargs.get("training_framework", "feedback_and_nl_hint")).strip().lower()
+        if self.training_framework not in {
+            "feedback_only",
+            "nl_hint_only",
+            "feedback_and_nl_hint",
+        }:
+            self.training_framework = "feedback_and_nl_hint"
+        self.nl_hint_delivery = str(kwargs.get("nl_hint_delivery", "demo_only")).strip().lower()
+        if self.nl_hint_delivery not in {
+            "off",
+            "demo_only",
+            "feedback_only",
+            "demo_and_feedback",
+        }:
+            self.nl_hint_delivery = "demo_only"
+        self._interpret_nl_hint = self.training_framework in {"feedback_and_nl_hint", "nl_hint_only"}
+        self.student_id = kwargs.get("student_id")
+        self.holdout_problem_set = list(kwargs.get("holdout_problem_set", []) or [])
+        self.holdout_logger = kwargs.get("holdout_logger")
+        self.holdout_eval_mode = str(kwargs.get("holdout_eval_mode", "stepwise")).strip().lower()
+        if self.holdout_eval_mode not in {"off", "next_problem", "stepwise"}:
+            self.holdout_eval_mode = "stepwise"
+        self.holdout_total_incorrect = 0
+        self.holdout_total_correct = 0
+
         if('problem_set' not in kwargs and
            'n_problems' not in kwargs and 
            'outer_loop_controller' not in kwargs):
@@ -96,6 +121,73 @@ class Trainer:
         self.problem_end_callbacks = problem_end_callbacks
         self.step_end_callbacks = step_end_callbacks
         self.train_end_callbacks = train_end_callbacks
+
+    def _should_use_nl_hint(self, outcome_kind):
+        if not self._interpret_nl_hint:
+            return False
+        if self.nl_hint_delivery == "off":
+            return False
+        if outcome_kind == "HINT":
+            return self.nl_hint_delivery in {"demo_only", "demo_and_feedback"}
+        if outcome_kind in {"CORRECT", "INCORRECT"}:
+            return self.nl_hint_delivery in {"feedback_only", "demo_and_feedback"}
+        return False
+
+    def _resolve_hint_text(self, action):
+        if isinstance(action, Action):
+            hint_txt = action.annotations.get("hint")
+            if isinstance(hint_txt, str) and hint_txt.strip():
+                return hint_txt.strip()
+            sel = action.selection
+        else:
+            sel = getattr(action, "selection", None)
+
+        if not sel:
+            return None
+
+        hint_map = getattr(self.env, "intermediate_hints", {}) or {}
+        hint_values = hint_map.get(sel)
+        if isinstance(hint_values, str) and hint_values.strip():
+            return hint_values.strip()
+        if isinstance(hint_values, (list, tuple)):
+            for hint_txt in hint_values:
+                if isinstance(hint_txt, str) and hint_txt.strip():
+                    return hint_txt.strip()
+        return None
+
+    def _annotate_nl_hint(self, state, action, train_kwargs, outcome_kind):
+        if not self._should_use_nl_hint(outcome_kind):
+            return None
+
+        hint_txt = self._resolve_hint_text(action)
+        if not hint_txt:
+            return None
+
+        print(f"[Trainer] NL hint ({outcome_kind.lower()}): {hint_txt}")
+        hint_precond = None
+        try:
+            try:
+                from apprentice.agents.cre_agents.hint_nlp import interpret_hint, interpret_hint_with_llm
+            except ImportError:
+                from AL_Core.apprentice.agents.cre_agents.hint_nlp import interpret_hint, interpret_hint_with_llm
+            if self.hint_llm_call:
+                hint_precond = interpret_hint_with_llm(state, action, hint_txt, self.hint_llm_call)
+            else:
+                hint_precond = interpret_hint(state, action, hint_txt)
+            if hint_precond:
+                print(f"[Trainer] Hint precondition ({outcome_kind.lower()}): {hint_precond}")
+        except Exception as exc:
+            print(f"[Trainer] hint interpretation failed: {exc}")
+            hint_precond = None
+
+        if isinstance(action, Action):
+            action.annotations["hint"] = hint_txt
+            if hint_precond:
+                action.annotations["hint_precond"] = hint_precond
+            train_kwargs["action"] = self._sanitize_action(action)
+        if hint_precond:
+            train_kwargs["hint_precond"] = hint_precond
+        return hint_precond
 
 
     def _canonicalize_str(self, value):
@@ -267,25 +359,14 @@ class Trainer:
         train_kwargs = self._to_train_kwargs(state, action, reward, 
              is_start=is_start,
              is_demo=outcome_kind=="HINT")
-        if outcome_kind == "HINT":
-            hint_txt = None
-            if isinstance(action, Action):
-                hint_txt = action.annotations.get("hint")
-            hint_precond = None
-            if hint_txt:
-                try:
-                    from AL_Core.apprentice.agents.cre_agents.hint_nlp import interpret_hint, interpret_hint_with_llm
-                    if self.hint_llm_call:
-                        hint_precond = interpret_hint_with_llm(state, action, hint_txt, self.hint_llm_call)
-                    else:
-                        hint_precond = interpret_hint(state, action, hint_txt)
-                    if isinstance(action, Action):
-                        action.annotations["hint_precond"] = hint_precond
-                        train_kwargs["action"] = self._sanitize_action(action)
-                except Exception as exc:
-                    print(f"[Trainer] hint interpretation failed: {exc}")
-            if hint_precond:
-                train_kwargs["hint_precond"] = hint_precond
+        self._annotate_nl_hint(state, conv_action, train_kwargs, outcome_kind)
+
+        if self.training_framework == "nl_hint_only":
+            train_kwargs["hint_only_mode"] = True
+            if outcome_kind != "HINT":
+                train_kwargs["attempted_action"] = self._sanitize_action(conv_action)
+                train_kwargs["attempted_reward"] = reward
+
         try:
             self.agent.train(**train_kwargs)
         except AssertionError as exc:
@@ -324,8 +405,101 @@ class Trainer:
 
         return reward                
 
+    def _print_holdout_outcome(self, action, outcome_kind):
+        prefix = "[Holdout] "
+        if isinstance(action, Action):
+            sel, _, inp = action.as_tuple()
+            print(f"{prefix}{outcome_kind}: {sel} -> {inp}")
+        else:
+            print(f"{prefix}{outcome_kind}")
+
+    def holdout_eval_state(self, state, is_start=False):
+        action = self.agent.act(
+            **self._state_to_kwargs(state, is_start),
+            return_kind=self.agent_action_repr,
+        )
+
+        conv_action = Action(action) if action else None
+        reward = None
+        outcome_kind = None
+
+        if conv_action is not None:
+            reward = self.env.check(conv_action)
+            if reward > 0:
+                outcome_kind = "CORRECT"
+                self.holdout_total_correct += 1
+            else:
+                outcome_kind = "INCORRECT"
+                self.holdout_total_incorrect += 1
+        else:
+            outcome_kind = "INCORRECT"
+            self.holdout_total_incorrect += 1
+            reward = -1
+
+        log_action = conv_action if conv_action is not None else self.env.get_demo()
+        if log_action is not None and self.holdout_logger is not None:
+            s, a, inp = log_action.as_tuple()
+            self.holdout_logger.log_step(s, a, inp, outcome_kind, step_name=s, kcs=[s])
+
+        self._print_holdout_outcome(log_action, outcome_kind)
+
+        if reward > 0 and conv_action is not None:
+            self.env.apply(conv_action)
+            return reward
+
+        if self.holdout_eval_mode == "stepwise":
+            demo = self.env.get_demo()
+            if demo is not None:
+                self.env.apply(demo)
+        return reward
+
+    def run_holdout(self):
+        if not self.holdout_problem_set or self.holdout_eval_mode == "off":
+            return
+
+        if self.holdout_logger is not None:
+            holdout_student_id = self.student_id
+            if holdout_student_id:
+                holdout_student_id = f"{holdout_student_id}_holdout"
+            self.holdout_logger.set_student(holdout_student_id)
+
+        print("=" * 100)
+        print(f"STARTING HOLDOUT EVAL ({len(self.holdout_problem_set)} problems, mode={self.holdout_eval_mode})")
+
+        for idx, prob_args in enumerate(self.holdout_problem_set, start=1):
+            self.env.set_problem(**prob_args)
+            if self.holdout_logger is not None:
+                self.holdout_logger.set_problem(self.env.problem_name)
+
+            print(Back.WHITE + Fore.BLACK + f"HOLDOUT PROBLEM {idx} of {len(self.holdout_problem_set)}: {self.env.problem_name}" + Style.RESET_ALL)
+
+            is_start = True
+            while True:
+                state = self.env.get_state()
+                if state.get_annotation("is_done") is True:
+                    break
+
+                rew = self.holdout_eval_state(state, is_start=is_start)
+                if rew > 0:
+                    is_start = False
+                    continue
+                if self.holdout_eval_mode == "next_problem":
+                    break
+                is_start = False
+
+        total = self.holdout_total_correct + self.holdout_total_incorrect
+        print("=" * 100)
+        print(
+            f"HOLDOUT TOTALS (correct:{self.holdout_total_correct}, incorrect:{self.holdout_total_incorrect})"
+        )
+        if total > 0:
+            print(
+                f"HOLDOUT PERCENTS(correct:{100*self.holdout_total_correct/total:.2f}%, "
+                f"incorrect:{100*self.holdout_total_incorrect/total:.2f}%)"
+            )
+
     def start(self):
-        self.logger.set_student()
+        self.logger.set_student(self.student_id)
         p = 1
         p_iter = self.problem_iterator
         for prob_args in p_iter:
@@ -363,6 +537,7 @@ class Trainer:
         total = (self.total_hints+self.total_incorrect+self.total_correct)
         print(f'TOTALS  (correct:{self.total_correct}, incorrect:{self.total_incorrect}, hint:{self.total_hints}, assistance:{self.total_hints+self.total_incorrect})')
         print(f'PERCENTS(correct:{100*(self.total_correct)/total:.2f}%, incorrect:{100*(self.total_incorrect)/total:.2f}%, hint:{100*(self.total_hints)/total:.2f}%, assistance:{100*(self.total_hints+self.total_incorrect)/total:.2f}%)')
+        self.run_holdout()
 
 class AuthorTrainer(Trainer):
     def __init__(self, *args, **kwargs):

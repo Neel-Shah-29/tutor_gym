@@ -15,25 +15,59 @@ from shop2.common import V
 # ----------------------
 # Problem generator
 # ----------------------
-def htn_geometry_solve_triangle_problem():
+
+GEOMETRY_TRAIN_PROBLEMS = [
+    # Right triangle trig / Pythagorean.
+    "Right triangle: a=3, b=4",
+    "Right triangle: a=5, b=12",
+    "Right triangle: a=7, b=24",
+    "Right triangle: a=8, b=15",
+    # Law of sines.
+    "ASA: A=30, C=60, a=10",
+    "ASA: A=40, C=80, a=12",
+    "ASA: A=25, C=70, a=9",
+    "AAS: A=35, B=45, a=11",
+    # Law of cosines.
+    "SAS: a=7, b=8, C=60.",
+    "SAS: a=9, b=11, C=45.",
+    "SAS: a=10, b=13, C=75.",
+    # Ambiguous / sine-family cases.
+    "SSA: A=35, C=65, a=14",
+    "SSA: A=28, C=52, a=9",
+    "SSA: A=42, C=78, a=15",
+    # Area problems.
+    "AREA: a=7, b=9, c=12",
+    "AREA: a=8, b=10, C=30",
+    "AREA: a=11, b=13, c=18",
+]
+
+GEOMETRY_HOLDOUT_PROBLEMS = [
+    "Right triangle: a=9, b=40",
+    "ASA: A=50, C=70, a=14",
+    "SAS: a=12, b=14, C=50.",
+    "SSA: A=32, C=58, a=13",
+    "AREA: a=9, b=12, c=15",
+]
+
+
+def htn_geometry_solve_triangle_problem_pool(split="train"):
+    split = str(split or "train").strip().lower()
+    if split == "train":
+        return list(GEOMETRY_TRAIN_PROBLEMS)
+    if split == "holdout":
+        return list(GEOMETRY_HOLDOUT_PROBLEMS)
+    if split == "all":
+        return [*GEOMETRY_TRAIN_PROBLEMS, *GEOMETRY_HOLDOUT_PROBLEMS]
+    raise ValueError(f"Unsupported solve_triangle problem split: {split}")
+
+
+def htn_geometry_solve_triangle_problem(split="train"):
     """
     Return a single-string prompt describing a triangle scenario.
     We keep numbers friendly so we can validate cleanly.
-    Patterns covered: RIGHT, ASA (Sines), SAS (Cosines), SIM (Similarity), AREA.
+    Patterns covered: RIGHT, ASA/AAS/SSA (Sines), SAS (Cosines), and AREA.
     """
-    scenarios = [
-        # Right triangle trig (SOH/CAH/TOA + Pythagorean)
-        "Right triangle: a=3, b=4",
-        # Law of Sines (ASA)
-        "ASA: A=30, C=60, a=10",
-        # Law of Cosines (SAS)
-        "SAS: a=7, b=8, C=60.",
-        # Similarity scaling
-        # "SIM: scale=2, AB=5.",
-        # Area relation 1/2 ab sin C
-        # "AREA: a=8, b=10, C=30",
-    ]
-    return choice(scenarios)
+    return choice(htn_geometry_solve_triangle_problem_pool(split=split))
 
 
 # ----------------------
