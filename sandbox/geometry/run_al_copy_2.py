@@ -119,6 +119,16 @@ def build_problem_sets(n_problems, seed=None, holdout_count=0):
     return train_problem_set, holdout_problem_set
 
 
+def _safe_predicate_text(fact):
+    try:
+        return str(fact)
+    except Exception:
+        try:
+            return repr(fact)
+        except Exception:
+            return f"<unprintable {type(fact).__name__}>"
+
+
 def _extract_predicates(flat_feat_state):
     preds = []
     gvals = []
@@ -128,11 +138,11 @@ def _extract_predicates(flat_feat_state):
         except Exception:
             facts_iter = flat_feat_state.get_facts()
         for fact in facts_iter:
-            preds.append(str(fact))
+            preds.append(_safe_predicate_text(fact))
             gvals.append(fact)
     elif isinstance(flat_feat_state, (list, tuple)):
         for fact in flat_feat_state:
-            preds.append(str(fact))
+            preds.append(_safe_predicate_text(fact))
             gvals.append(fact)
     return preds, gvals
 
@@ -191,6 +201,7 @@ def select_hint_predicates(
     filter_labels=True,
     max_count=5,
     debug_label="input change",
+    prefer_llm=False,
 ):
     if not predicates:
         return []
@@ -210,7 +221,21 @@ def select_hint_predicates(
     if hint_key:
         preferred_terms.append(str(hint_key).lower())
 
-    if preferred_terms:
+    prompt = _build_prompt([predicates[i] for i in candidates], hint)
+    response = ""
+
+    if prefer_llm:
+        try:
+            response = llm_call(prompt) if callable(llm_call) else ""
+        except Exception as exc:
+            print(f"[run_al_copy_2] LLM call failed: {exc}")
+            response = ""
+
+        indices = _parse_indices(str(response), len(candidates))
+        if indices:
+            selected = [candidates[i] for i in indices[:max_count]]
+
+    if not selected and preferred_terms:
         direct_scored = []
         for i in candidates:
             pred_l = predicates[i].lower()
@@ -230,8 +255,6 @@ def select_hint_predicates(
             direct_scored.sort(key=lambda item: (-item[0], item[2], item[1]))
             selected = [i for _, i, _ in direct_scored[:max_count]]
 
-    prompt = _build_prompt([predicates[i] for i in candidates], hint)
-    response = ""
     if not selected:
         try:
             response = llm_call(prompt) if callable(llm_call) else ""
@@ -383,7 +406,8 @@ def _collect_framework_options(training_framework, args):
         "one_hot": True,
         "gated_hints": framework != "feedback_only",
         "gated_filter_labels": True,
-        "gated_use_llm": False,
+        "gated_use_llm": args.use_hf_llm,
+        "gated_prefer_llm": args.use_hf_llm,
         "gated_max_predicates": args.predicate_threshold,
         "gated_upweight": 5.0,
         "gated_hint_map": htn_geometry_solve_triangle_intermediate_hints(),
@@ -445,7 +469,8 @@ def run_training(agent, typ="arith", logger_name=None, n=30, n_fracs=2,
                 num_incorrect_force_demo=-1, use_hint_llm=False,
                 problem_set=None, holdout_problem_set=None, holdout_log_dir=None,
                 nl_hint_delivery="demo_only", student_id=None,
-                holdout_eval_mode="stepwise"):
+                holdout_eval_mode="stepwise", max_learning_opportunities=None,
+                debug_stand_dir=None, debug_warmup_problems=0):
     logger = DataShopLogger(logger_name, extra_kcs=["field"], output_dir=log_dir)
     holdout_logger = None
     if holdout_problem_set and holdout_log_dir:
@@ -457,6 +482,38 @@ def run_training(agent, typ="arith", logger_name=None, n=30, n_fracs=2,
 
     env = ApprenticeTutor(domain="solve_triangle")
 
+    warmup_problem_set = []
+    if problem_set and debug_warmup_problems:
+        warmup_n = max(0, min(int(debug_warmup_problems), len(problem_set)))
+        warmup_problem_set = list(problem_set[:warmup_n])
+        problem_set = list(problem_set[warmup_n:])
+        n = len(problem_set)
+
+    if warmup_problem_set:
+        warmup_logger = DataShopLogger(
+            f"{logger_name}_warmup",
+            extra_kcs=["field"],
+            output_dir=log_dir,
+        )
+        warmup_kwargs = {
+            "num_incorrect_force_demo": 0,
+            "training_framework": training_framework,
+            "nl_hint_delivery": nl_hint_delivery,
+            "student_id": f"{student_id}_warmup" if student_id else None,
+            "holdout_problem_set": [],
+            "holdout_eval_mode": "off",
+            "problem_set": warmup_problem_set,
+            "n_problems": len(warmup_problem_set),
+        }
+        if use_hint_llm:
+            warmup_kwargs["hint_llm_call"] = build_hf_llm_call()
+        print(
+            f"[run_al_copy_2] Warmup: forcing demos for "
+            f"{len(warmup_problem_set)} problem(s) before STAND debug logging"
+        )
+        Trainer(agent, env, logger=warmup_logger, **warmup_kwargs).start()
+        env = ApprenticeTutor(domain="solve_triangle")
+
     trainer_kwargs = {
         "num_incorrect_force_demo": num_incorrect_force_demo,
         "training_framework": training_framework,
@@ -465,6 +522,8 @@ def run_training(agent, typ="arith", logger_name=None, n=30, n_fracs=2,
         "holdout_problem_set": holdout_problem_set,
         "holdout_logger": holdout_logger,
         "holdout_eval_mode": holdout_eval_mode,
+        "max_learning_opportunities": max_learning_opportunities,
+        "debug_stand_dir": debug_stand_dir,
     }
 
     if use_hint_llm:
@@ -506,6 +565,9 @@ if __name__ == "__main__":
     parser.add_argument("--log-dir", default=str(Path(__file__).resolve().parent / "log_al"), dest="log_dir")
     parser.add_argument("--holdout-log-dir", default="", dest="holdout_log_dir")
     parser.add_argument("--holdout-count", type=int, default=0, dest="holdout_count")
+    parser.add_argument("--max-learning-opportunities", type=int, default=None, dest="max_learning_opportunities")
+    parser.add_argument("--stand-debug-dir", default="", dest="stand_debug_dir")
+    parser.add_argument("--debug-warmup-problems", type=int, default=0, dest="debug_warmup_problems")
     parser.add_argument(
         "--holdout-eval-mode",
         default="stepwise",
@@ -622,4 +684,7 @@ if __name__ == "__main__":
             nl_hint_delivery=args.nl_hint_delivery,
             student_id=student_id,
             holdout_eval_mode=args.holdout_eval_mode,
+            max_learning_opportunities=args.max_learning_opportunities,
+            debug_stand_dir=args.stand_debug_dir or None,
+            debug_warmup_problems=args.debug_warmup_problems,
         )

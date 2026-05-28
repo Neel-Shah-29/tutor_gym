@@ -1,0 +1,139 @@
+------Skill Skill(-1, uid='SK_uulEPaQADANIlsTQX4rGwEmhh8lJU9') -------
+Opportunity 7
+Phase: ifit
+Current error rate: 0.666667
+Current holdout error: 0.875000
+Current counts: {
+  "attempts": 6,
+  "correct": 2,
+  "hint": 1,
+  "incorrect": 4,
+  "learning_opportunities": 7,
+  "outcome": "INCORRECT"
+}
+
+[Predicate weights]
+<no upweighted predicates>
+
+[STAND Tree]
+Tree w/ classes: [ 1 -1]
+ROOT(0) : ([TF(a == b, compute_area.value, compute_missing_sides.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, backfill_with_sines_if_needed.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, map_correspondence.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, scale_sides_angles.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, select_area_formula.value)]==True)[F:1 T:2] 
+          ([triangle_type.value]=='Area')[F:1 T:2] 
+          ([consistency_checks.value]=='OK')[F:1 T:2] 
+          ([TF(a == b, compute_area.value, compute_missing_angles.value)]==True)[F:1 T:2] 
+          ([report_solution.value]=='Solution: ')[F:1 T:2] 
+          ([select_area_formula.value]=='1/2·a·b·sin(C)')[F:1 T:2] 
+          ([compute_area.value]=='OK')[F:1 T:2] 
+          ([consistency_checks.locked]==False)[F:1 T:2] 
+          ([report_solution.locked]==False)[F:1 T:2] 
+          ([select_area_formula.locked]==False)[F:1 T:2] 
+          ([compute_area.locked]==False)[F:1 T:2] 
+          ([TF(a == b, normalize_inputs.value, consistency_checks.value)]==True)[F:1 T:2] 
+          ([compute_unknown_by_cosine.value]=='')[F:1 T:2] 
+          ([TF(a == b, compute_area.value, resolve_ssa_ambiguity.value)]==True)[F:1 T:2] 
+          ([TF(a == b, scale_sides_angles.value, select_area_formula.value)]==True)[F:1 T:2] 
+          ([TF(a == b, scale_sides_angles.value, compute_area.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, apply_pythagorean.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, use_trig_ratios.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, consistency_checks.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, report_solution.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, resolve_ssa_ambiguity.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, compute_missing_angles.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, compute_missing_sides.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, backfill_with_sines_if_needed.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, map_correspondence.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, scale_sides_angles.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, compute_area.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, normalize_inputs.value)]==False)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, apply_pythagorean.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, use_trig_ratios.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, report_solution.value)]==True)[F:1 T:2] 
+          ([TF(a == b, normalize_inputs.value, compute_area.value)]==True)[F:1 T:2] 
+          ([TF(a == b, apply_pythagorean.value, consistency_checks.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, consistency_checks.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, compute_missing_angles.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, compute_missing_sides.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, backfill_with_sines_if_needed.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, map_correspondence.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, scale_sides_angles.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, select_area_formula.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, compute_area.value)]==False)[F:1 T:2] 
+          ([TF(a == b, resolve_ssa_ambiguity.value, compute_unknown_by_cosine.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_missing_angles.value, consistency_checks.value)]==False)[F:1 T:2] 
+          ([TF(a == b, compute_missing_angles.value, report_solution.value)]==False)[F:1 T:2] 
+          ([TF(a == b, compute_missing_angles.value, select_area_formula.value)]==False)[F:1 T:2] 
+          ([TF(a == b, compute_missing_angles.value, compute_area.value)]==False)[F:1 T:2] 	inds=[0 1]
+LEAF(1) : [0 1]	inds=[1]
+LEAF(2) : [1 0]	inds=[0]
+
+Optimal conjunctions for label -1:
+{~(TF(a == b, compute_area.value, compute_missing_sides.value)==1) | ~(TF(a == b, compute_area.value, backfill_with_sines_if_needed.value)==1) | ~(TF(a == b, compute_area.value, map_correspondence.value)==1) | ~(TF(a == b, compute_area.value, scale_sides_angles.value)==1) | ~(TF(a == b, compute_area.value, select_area_formula.value)==1) | ~(triangle_type.value==1) | ~(consistency_checks.value==1) | ~(TF(a == b, compute_area.value, compute_missing_angles.value)==1) | ~(report_solution.value==1) | ~(select_area_formula.value==1) | ~(compute_area.value==1) | ~(consistency_checks.locked==0) | ~(report_solution.locked==0) | ~(select_area_formula.locked==0) | ~(compute_area.locked==0) | ~(TF(a == b, normalize_inputs.value, consistency_checks.value)==0) | ~(compute_unknown_by_cosine.value==1) | ~(TF(a == b, compute_area.value, resolve_ssa_ambiguity.value)==1) | ~(TF(a == b, scale_sides_angles.value, select_area_formula.value)==1) | ~(TF(a == b, scale_sides_angles.value, compute_area.value)==1) | ~(TF(a == b, select_area_formula.value, apply_pythagorean.value)==1) | ~(TF(a == b, select_area_formula.value, use_trig_ratios.value)==1) | ~(TF(a == b, select_area_formula.value, consistency_checks.value)==1) | ~(TF(a == b, select_area_formula.value, report_solution.value)==1) | ~(TF(a == b, select_area_formula.value, resolve_ssa_ambiguity.value)==1) | ~(TF(a == b, select_area_formula.value, compute_missing_angles.value)==1) | ~(TF(a == b, select_area_formula.value, compute_missing_sides.value)==1) | ~(TF(a == b, select_area_formula.value, backfill_with_sines_if_needed.value)==1) | ~(TF(a == b, select_area_formula.value, map_correspondence.value)==1) | ~(TF(a == b, select_area_formula.value, scale_sides_angles.value)==1) | ~(TF(a == b, select_area_formula.value, compute_area.value)==1) | ~(TF(a == b, compute_area.value, normalize_inputs.value)==1) | ~(TF(a == b, compute_area.value, apply_pythagorean.value)==1) | ~(TF(a == b, compute_area.value, use_trig_ratios.value)==1) | ~(TF(a == b, compute_area.value, report_solution.value)==1) | ~(TF(a == b, normalize_inputs.value, compute_area.value)==0) | ~(TF(a == b, apply_pythagorean.value, consistency_checks.value)==0) | ~(TF(a == b, report_solution.value, consistency_checks.value)==0) | ~(TF(a == b, report_solution.value, compute_missing_angles.value)==0) | ~(TF(a == b, report_solution.value, compute_missing_sides.value)==0) | ~(TF(a == b, report_solution.value, backfill_with_sines_if_needed.value)==0) | ~(TF(a == b, report_solution.value, map_correspondence.value)==0) | ~(TF(a == b, report_solution.value, scale_sides_angles.value)==0) | ~(TF(a == b, report_solution.value, select_area_formula.value)==0) | ~(TF(a == b, report_solution.value, compute_area.value)==0) | ~(TF(a == b, resolve_ssa_ambiguity.value, compute_unknown_by_cosine.value)==0) | ~(TF(a == b, compute_missing_angles.value, consistency_checks.value)==0) | ~(TF(a == b, compute_missing_angles.value, report_solution.value)==0) | ~(TF(a == b, compute_missing_angles.value, select_area_formula.value)==0) | ~(TF(a == b, compute_missing_angles.value, compute_area.value)==0)}
+
+Optimal conjunctions for label 1:
+{(TF(a == b, compute_area.value, compute_missing_sides.value)==1) | (TF(a == b, compute_area.value, backfill_with_sines_if_needed.value)==1) | (TF(a == b, compute_area.value, map_correspondence.value)==1) | (TF(a == b, compute_area.value, scale_sides_angles.value)==1) | (TF(a == b, compute_area.value, select_area_formula.value)==1) | (triangle_type.value==1) | (consistency_checks.value==1) | (TF(a == b, compute_area.value, compute_missing_angles.value)==1) | (report_solution.value==1) | (select_area_formula.value==1) | (compute_area.value==1) | (consistency_checks.locked==0) | (report_solution.locked==0) | (select_area_formula.locked==0) | (compute_area.locked==0) | (TF(a == b, normalize_inputs.value, consistency_checks.value)==0) | (compute_unknown_by_cosine.value==1) | (TF(a == b, compute_area.value, resolve_ssa_ambiguity.value)==1) | (TF(a == b, scale_sides_angles.value, select_area_formula.value)==1) | (TF(a == b, scale_sides_angles.value, compute_area.value)==1) | (TF(a == b, select_area_formula.value, apply_pythagorean.value)==1) | (TF(a == b, select_area_formula.value, use_trig_ratios.value)==1) | (TF(a == b, select_area_formula.value, consistency_checks.value)==1) | (TF(a == b, select_area_formula.value, report_solution.value)==1) | (TF(a == b, select_area_formula.value, resolve_ssa_ambiguity.value)==1) | (TF(a == b, select_area_formula.value, compute_missing_angles.value)==1) | (TF(a == b, select_area_formula.value, compute_missing_sides.value)==1) | (TF(a == b, select_area_formula.value, backfill_with_sines_if_needed.value)==1) | (TF(a == b, select_area_formula.value, map_correspondence.value)==1) | (TF(a == b, select_area_formula.value, scale_sides_angles.value)==1) | (TF(a == b, select_area_formula.value, compute_area.value)==1) | (TF(a == b, compute_area.value, normalize_inputs.value)==1) | (TF(a == b, compute_area.value, apply_pythagorean.value)==1) | (TF(a == b, compute_area.value, use_trig_ratios.value)==1) | (TF(a == b, compute_area.value, report_solution.value)==1) | (TF(a == b, normalize_inputs.value, compute_area.value)==0) | (TF(a == b, apply_pythagorean.value, consistency_checks.value)==0) | (TF(a == b, report_solution.value, consistency_checks.value)==0) | (TF(a == b, report_solution.value, compute_missing_angles.value)==0) | (TF(a == b, report_solution.value, compute_missing_sides.value)==0) | (TF(a == b, report_solution.value, backfill_with_sines_if_needed.value)==0) | (TF(a == b, report_solution.value, map_correspondence.value)==0) | (TF(a == b, report_solution.value, scale_sides_angles.value)==0) | (TF(a == b, report_solution.value, select_area_formula.value)==0) | (TF(a == b, report_solution.value, compute_area.value)==0) | (TF(a == b, resolve_ssa_ambiguity.value, compute_unknown_by_cosine.value)==0) | (TF(a == b, compute_missing_angles.value, consistency_checks.value)==0) | (TF(a == b, compute_missing_angles.value, report_solution.value)==0) | (TF(a == b, compute_missing_angles.value, select_area_formula.value)==0) | (TF(a == b, compute_missing_angles.value, compute_area.value)==0)}
+
+[STAND Tree w/o weights]
+Tree w/ classes: [ 1 -1]
+ROOT(0) : ([TF(a == b, compute_area.value, compute_missing_sides.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, backfill_with_sines_if_needed.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, map_correspondence.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, scale_sides_angles.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, select_area_formula.value)]==True)[F:1 T:2] 
+          ([triangle_type.value]=='Area')[F:1 T:2] 
+          ([consistency_checks.value]=='OK')[F:1 T:2] 
+          ([TF(a == b, compute_area.value, compute_missing_angles.value)]==True)[F:1 T:2] 
+          ([report_solution.value]=='Solution: ')[F:1 T:2] 
+          ([select_area_formula.value]=='1/2·a·b·sin(C)')[F:1 T:2] 
+          ([compute_area.value]=='OK')[F:1 T:2] 
+          ([consistency_checks.locked]==False)[F:1 T:2] 
+          ([report_solution.locked]==False)[F:1 T:2] 
+          ([select_area_formula.locked]==False)[F:1 T:2] 
+          ([compute_area.locked]==False)[F:1 T:2] 
+          ([TF(a == b, normalize_inputs.value, consistency_checks.value)]==True)[F:1 T:2] 
+          ([compute_unknown_by_cosine.value]=='')[F:1 T:2] 
+          ([TF(a == b, compute_area.value, resolve_ssa_ambiguity.value)]==True)[F:1 T:2] 
+          ([TF(a == b, scale_sides_angles.value, select_area_formula.value)]==True)[F:1 T:2] 
+          ([TF(a == b, scale_sides_angles.value, compute_area.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, apply_pythagorean.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, use_trig_ratios.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, consistency_checks.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, report_solution.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, resolve_ssa_ambiguity.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, compute_missing_angles.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, compute_missing_sides.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, backfill_with_sines_if_needed.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, map_correspondence.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, scale_sides_angles.value)]==True)[F:1 T:2] 
+          ([TF(a == b, select_area_formula.value, compute_area.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, normalize_inputs.value)]==False)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, apply_pythagorean.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, use_trig_ratios.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_area.value, report_solution.value)]==True)[F:1 T:2] 
+          ([TF(a == b, normalize_inputs.value, compute_area.value)]==True)[F:1 T:2] 
+          ([TF(a == b, apply_pythagorean.value, consistency_checks.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, consistency_checks.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, compute_missing_angles.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, compute_missing_sides.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, backfill_with_sines_if_needed.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, map_correspondence.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, scale_sides_angles.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, select_area_formula.value)]==False)[F:1 T:2] 
+          ([TF(a == b, report_solution.value, compute_area.value)]==False)[F:1 T:2] 
+          ([TF(a == b, resolve_ssa_ambiguity.value, compute_unknown_by_cosine.value)]==True)[F:1 T:2] 
+          ([TF(a == b, compute_missing_angles.value, consistency_checks.value)]==False)[F:1 T:2] 
+          ([TF(a == b, compute_missing_angles.value, report_solution.value)]==False)[F:1 T:2] 
+          ([TF(a == b, compute_missing_angles.value, select_area_formula.value)]==False)[F:1 T:2] 
+          ([TF(a == b, compute_missing_angles.value, compute_area.value)]==False)[F:1 T:2] 	inds=[0 1]
+LEAF(1) : [0 1]	inds=[1]
+LEAF(2) : [1 0]	inds=[0]
+
+Optimal conjunctions for label -1:
+{~(TF(a == b, compute_area.value, compute_missing_sides.value)==1) | ~(TF(a == b, compute_area.value, backfill_with_sines_if_needed.value)==1) | ~(TF(a == b, compute_area.value, map_correspondence.value)==1) | ~(TF(a == b, compute_area.value, scale_sides_angles.value)==1) | ~(TF(a == b, compute_area.value, select_area_formula.value)==1) | ~(triangle_type.value==1) | ~(consistency_checks.value==1) | ~(TF(a == b, compute_area.value, compute_missing_angles.value)==1) | ~(report_solution.value==1) | ~(select_area_formula.value==1) | ~(compute_area.value==1) | ~(consistency_checks.locked==0) | ~(report_solution.locked==0) | ~(select_area_formula.locked==0) | ~(compute_area.locked==0) | ~(TF(a == b, normalize_inputs.value, consistency_checks.value)==0) | ~(compute_unknown_by_cosine.value==1) | ~(TF(a == b, compute_area.value, resolve_ssa_ambiguity.value)==1) | ~(TF(a == b, scale_sides_angles.value, select_area_formula.value)==1) | ~(TF(a == b, scale_sides_angles.value, compute_area.value)==1) | ~(TF(a == b, select_area_formula.value, apply_pythagorean.value)==1) | ~(TF(a == b, select_area_formula.value, use_trig_ratios.value)==1) | ~(TF(a == b, select_area_formula.value, consistency_checks.value)==1) | ~(TF(a == b, select_area_formula.value, report_solution.value)==1) | ~(TF(a == b, select_area_formula.value, resolve_ssa_ambiguity.value)==1) | ~(TF(a == b, select_area_formula.value, compute_missing_angles.value)==1) | ~(TF(a == b, select_area_formula.value, compute_missing_sides.value)==1) | ~(TF(a == b, select_area_formula.value, backfill_with_sines_if_needed.value)==1) | ~(TF(a == b, select_area_formula.value, map_correspondence.value)==1) | ~(TF(a == b, select_area_formula.value, scale_sides_angles.value)==1) | ~(TF(a == b, select_area_formula.value, compute_area.value)==1) | ~(TF(a == b, compute_area.value, normalize_inputs.value)==1) | ~(TF(a == b, compute_area.value, apply_pythagorean.value)==1) | ~(TF(a == b, compute_area.value, use_trig_ratios.value)==1) | ~(TF(a == b, compute_area.value, report_solution.value)==1) | ~(TF(a == b, normalize_inputs.value, compute_area.value)==0) | ~(TF(a == b, apply_pythagorean.value, consistency_checks.value)==0) | ~(TF(a == b, report_solution.value, consistency_checks.value)==0) | ~(TF(a == b, report_solution.value, compute_missing_angles.value)==0) | ~(TF(a == b, report_solution.value, compute_missing_sides.value)==0) | ~(TF(a == b, report_solution.value, backfill_with_sines_if_needed.value)==0) | ~(TF(a == b, report_solution.value, map_correspondence.value)==0) | ~(TF(a == b, report_solution.value, scale_sides_angles.value)==0) | ~(TF(a == b, report_solution.value, select_area_formula.value)==0) | ~(TF(a == b, report_solution.value, compute_area.value)==0) | ~(TF(a == b, resolve_ssa_ambiguity.value, compute_unknown_by_cosine.value)==0) | ~(TF(a == b, compute_missing_angles.value, consistency_checks.value)==0) | ~(TF(a == b, compute_missing_angles.value, report_solution.value)==0) | ~(TF(a == b, compute_missing_angles.value, select_area_formula.value)==0) | ~(TF(a == b, compute_missing_angles.value, compute_area.value)==0)}
+
+Optimal conjunctions for label 1:
+{(TF(a == b, compute_area.value, compute_missing_sides.value)==1) | (TF(a == b, compute_area.value, backfill_with_sines_if_needed.value)==1) | (TF(a == b, compute_area.value, map_correspondence.value)==1) | (TF(a == b, compute_area.value, scale_sides_angles.value)==1) | (TF(a == b, compute_area.value, select_area_formula.value)==1) | (triangle_type.value==1) | (consistency_checks.value==1) | (TF(a == b, compute_area.value, compute_missing_angles.value)==1) | (report_solution.value==1) | (select_area_formula.value==1) | (compute_area.value==1) | (consistency_checks.locked==0) | (report_solution.locked==0) | (select_area_formula.locked==0) | (compute_area.locked==0) | (TF(a == b, normalize_inputs.value, consistency_checks.value)==0) | (compute_unknown_by_cosine.value==1) | (TF(a == b, compute_area.value, resolve_ssa_ambiguity.value)==1) | (TF(a == b, scale_sides_angles.value, select_area_formula.value)==1) | (TF(a == b, scale_sides_angles.value, compute_area.value)==1) | (TF(a == b, select_area_formula.value, apply_pythagorean.value)==1) | (TF(a == b, select_area_formula.value, use_trig_ratios.value)==1) | (TF(a == b, select_area_formula.value, consistency_checks.value)==1) | (TF(a == b, select_area_formula.value, report_solution.value)==1) | (TF(a == b, select_area_formula.value, resolve_ssa_ambiguity.value)==1) | (TF(a == b, select_area_formula.value, compute_missing_angles.value)==1) | (TF(a == b, select_area_formula.value, compute_missing_sides.value)==1) | (TF(a == b, select_area_formula.value, backfill_with_sines_if_needed.value)==1) | (TF(a == b, select_area_formula.value, map_correspondence.value)==1) | (TF(a == b, select_area_formula.value, scale_sides_angles.value)==1) | (TF(a == b, select_area_formula.value, compute_area.value)==1) | (TF(a == b, compute_area.value, normalize_inputs.value)==1) | (TF(a == b, compute_area.value, apply_pythagorean.value)==1) | (TF(a == b, compute_area.value, use_trig_ratios.value)==1) | (TF(a == b, compute_area.value, report_solution.value)==1) | (TF(a == b, normalize_inputs.value, compute_area.value)==0) | (TF(a == b, apply_pythagorean.value, consistency_checks.value)==0) | (TF(a == b, report_solution.value, consistency_checks.value)==0) | (TF(a == b, report_solution.value, compute_missing_angles.value)==0) | (TF(a == b, report_solution.value, compute_missing_sides.value)==0) | (TF(a == b, report_solution.value, backfill_with_sines_if_needed.value)==0) | (TF(a == b, report_solution.value, map_correspondence.value)==0) | (TF(a == b, report_solution.value, scale_sides_angles.value)==0) | (TF(a == b, report_solution.value, select_area_formula.value)==0) | (TF(a == b, report_solution.value, compute_area.value)==0) | (TF(a == b, resolve_ssa_ambiguity.value, compute_unknown_by_cosine.value)==0) | (TF(a == b, compute_missing_angles.value, consistency_checks.value)==0) | (TF(a == b, compute_missing_angles.value, report_solution.value)==0) | (TF(a == b, compute_missing_angles.value, select_area_formula.value)==0) | (TF(a == b, compute_missing_angles.value, compute_area.value)==0)}
+

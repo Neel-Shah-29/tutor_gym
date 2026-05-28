@@ -54,6 +54,9 @@ from tutorgym.envs.apprentice.cognitive_models.rational_equation import (
 from tutorgym.envs.apprentice.cognitive_models.solve_triangle import (
     htn_geometry_solve_triangle as solve_triangle
 )
+from tutorgym.envs.apprentice.cognitive_models.multicolumn import (
+    htn_multicolumn_addition as multicolumn_addition
+)
 
 DEFAULT_PROBLEM_FACT_FIELD = 'equation'
 
@@ -93,5 +96,6 @@ ENVIRONMENTS = {
     'quadratic_equations_solve_using_quadratic_formula': env_entry(quadratic_equations_solve_using_quadratic_formula.Domain, quadratic_equations_solve_using_quadratic_formula.htn_quadratic_equations_solve_using_quadratic_formula_problem),
     'quadratic_equations_solve_using_square_root_property': env_entry(quadratic_equations_solve_using_square_root_property.Domain, quadratic_equations_solve_using_square_root_property.htn_quadratic_equations_solve_using_square_root_property_problem),
     'rational_equation_find_domain': env_entry(rational_equation_find_domain.Domain, rational_equation_find_domain.htn_rational_equation_find_domain_problem),
-    'solve_triangle': env_entry(solve_triangle.Domain, solve_triangle.htn_geometry_solve_triangle_problem, 'triangle_type')
+    'solve_triangle': env_entry(solve_triangle.Domain, solve_triangle.htn_geometry_solve_triangle_problem, 'triangle_type'),
+    'multicolumn_addition': env_entry(multicolumn_addition.Domain, multicolumn_addition.htn_multicolumn_addition_problem, 'problem'),
 }

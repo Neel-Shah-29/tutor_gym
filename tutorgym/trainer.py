@@ -4,7 +4,10 @@ from colorama import Back, Fore, Style
 import colorama
 from colorama import init
 from pprint import pprint
+import contextlib
+import io
 import json
+import os
 from pathlib import Path
 
 # init(autoreset=True)
@@ -91,9 +94,18 @@ class Trainer:
             self.holdout_eval_mode = "stepwise"
         self.holdout_total_incorrect = 0
         self.holdout_total_correct = 0
+        self.learning_opportunities = 0
+        self.max_learning_opportunities = kwargs.get("max_learning_opportunities")
+        if self.max_learning_opportunities is not None:
+            self.max_learning_opportunities = int(self.max_learning_opportunities)
+            if self.max_learning_opportunities <= 0:
+                self.max_learning_opportunities = None
+        self.debug_stand_dir = kwargs.get("debug_stand_dir")
+        if self.debug_stand_dir:
+            Path(self.debug_stand_dir).mkdir(parents=True, exist_ok=True)
 
         if('problem_set' not in kwargs and
-           'n_problems' not in kwargs and 
+           'n_problems' not in kwargs and
            'outer_loop_controller' not in kwargs):
             raise ValueError("Trainer Be Given either a 'problem_set', 'n_problems', or an 'outer_loop_controller'")
 
@@ -121,6 +133,86 @@ class Trainer:
         self.problem_end_callbacks = problem_end_callbacks
         self.step_end_callbacks = step_end_callbacks
         self.train_end_callbacks = train_end_callbacks
+
+    def _debug_holdout_error_rate(self):
+        if not self.holdout_problem_set:
+            return None
+
+        try:
+            holdout_env = self.env.__class__(
+                domain=getattr(self.env, "default_domain", None) or getattr(self.env, "domain", None),
+                scaffold=getattr(self.env, "default_scaffold", "first"),
+            )
+        except Exception:
+            try:
+                from tutorgym.env_classes.apprentice.apprentice_tutor import ApprenticeTutor
+                holdout_env = ApprenticeTutor(domain=getattr(self.env, "domain", "solve_triangle"))
+            except Exception:
+                return None
+
+        try:
+            max_steps_per_problem = int(os.environ.get("CRE_DEBUG_HOLDOUT_MAX_STEPS", "8"))
+        except ValueError:
+            max_steps_per_problem = 8
+        if max_steps_per_problem <= 0:
+            max_steps_per_problem = None
+
+        correct = 0
+        incorrect = 0
+
+        def run_eval():
+            nonlocal correct, incorrect
+            for prob_args in self.holdout_problem_set:
+                try:
+                    holdout_env.set_problem(**prob_args)
+                except Exception:
+                    continue
+
+                is_start = True
+                steps = 0
+                while True:
+                    if max_steps_per_problem is not None and steps >= max_steps_per_problem:
+                        break
+                    steps += 1
+
+                    state = holdout_env.get_state()
+                    if state.get_annotation("is_done") is True:
+                        break
+
+                    action = self.agent.act(
+                        state=self._json_clone(self._sanitize_problem_state(state).objs),
+                        **self._json_clone(self._sanitize_problem_state(state).annotations),
+                        is_start=is_start,
+                        return_kind=self.agent_action_repr,
+                    )
+                    conv_action = Action(action) if action else None
+                    if conv_action is not None and holdout_env.check(conv_action) > 0:
+                        correct += 1
+                        holdout_env.apply(conv_action)
+                        is_start = False
+                        continue
+
+                    incorrect += 1
+                    demo = holdout_env.get_demo()
+                    if demo is not None:
+                        holdout_env.apply(demo)
+                    is_start = False
+
+        if os.environ.get("CRE_DEBUG_HOLDOUT_VERBOSE") == "1":
+            run_eval()
+        else:
+            with contextlib.redirect_stdout(io.StringIO()):
+                run_eval()
+
+        total = correct + incorrect
+        if total == 0:
+            return None
+        return {
+            "correct": correct,
+            "incorrect": incorrect,
+            "total": total,
+            "error_rate": incorrect / total,
+        }
 
     def _should_use_nl_hint(self, outcome_kind):
         if not self._interpret_nl_hint:
@@ -355,6 +447,7 @@ class Trainer:
 
         s,a,inp = action.as_tuple()
         self.logger.log_step(s, a, inp, outcome_kind, step_name=s, kcs=[s])
+        self.learning_opportunities += 1
 
         train_kwargs = self._to_train_kwargs(state, action, reward, 
              is_start=is_start,
@@ -366,6 +459,45 @@ class Trainer:
             if outcome_kind != "HINT":
                 train_kwargs["attempted_action"] = self._sanitize_action(conv_action)
                 train_kwargs["attempted_reward"] = reward
+
+        total_attempts = self.total_correct + self.total_incorrect
+        current_error_rate = (
+            self.total_incorrect / total_attempts
+            if total_attempts > 0
+            else 0.0
+        )
+        previous_debug_env = {
+            key: os.environ.get(key)
+            for key in (
+                "CRE_DEBUG_LEARNING_OPPORTUNITY",
+                "CRE_DEBUG_CURRENT_ERROR_RATE",
+                "CRE_DEBUG_CURRENT_HOLDOUT_ERROR_RATE",
+                "CRE_DEBUG_CURRENT_COUNTS",
+                "CRE_STAND_DEBUG_DIR",
+            )
+        }
+        os.environ["CRE_DEBUG_LEARNING_OPPORTUNITY"] = str(self.learning_opportunities)
+        os.environ["CRE_DEBUG_CURRENT_ERROR_RATE"] = f"{current_error_rate:.6f}"
+        os.environ["CRE_DEBUG_CURRENT_COUNTS"] = json.dumps(
+            {
+                "correct": self.total_correct,
+                "incorrect": self.total_incorrect,
+                "hint": self.total_hints,
+                "attempts": total_attempts,
+                "learning_opportunities": self.learning_opportunities,
+                "outcome": outcome_kind,
+            },
+            sort_keys=True,
+        )
+        holdout_debug = self._debug_holdout_error_rate() if self.debug_stand_dir else None
+        if holdout_debug is not None:
+            os.environ["CRE_DEBUG_CURRENT_HOLDOUT_ERROR_RATE"] = (
+                f"{holdout_debug['error_rate']:.6f}"
+            )
+        else:
+            os.environ["CRE_DEBUG_CURRENT_HOLDOUT_ERROR_RATE"] = "not_evaluated"
+        if self.debug_stand_dir:
+            os.environ["CRE_STAND_DEBUG_DIR"] = str(self.debug_stand_dir)
 
         try:
             self.agent.train(**train_kwargs)
@@ -397,6 +529,12 @@ class Trainer:
                 except Exception as log_exc:
                     print(f"[Trainer] Failed to write unicode debug snapshot: {log_exc}")
             raise
+        finally:
+            for key, value in previous_debug_env.items():
+                if value is None:
+                    os.environ.pop(key, None)
+                else:
+                    os.environ[key] = value
         self.print_outcome(conv_action, outcome_kind)
 
         # Change the state by applying the action
@@ -514,6 +652,19 @@ class Trainer:
             is_start = True
             incorr_streak = 0
             while True:#(not self.env.is_done):
+                if (
+                    self.max_learning_opportunities is not None
+                    and self.learning_opportunities >= self.max_learning_opportunities
+                ):
+                    print(
+                        f"Reached max learning opportunities: {self.max_learning_opportunities}"
+                    )
+                    total = (self.total_hints+self.total_incorrect+self.total_correct)
+                    if total > 0:
+                        print(f'TOTALS  (correct:{self.total_correct}, incorrect:{self.total_incorrect}, hint:{self.total_hints}, assistance:{self.total_hints+self.total_incorrect})')
+                        print(f'PERCENTS(correct:{100*(self.total_correct)/total:.2f}%, incorrect:{100*(self.total_incorrect)/total:.2f}%, hint:{100*(self.total_hints)/total:.2f}%, assistance:{100*(self.total_hints+self.total_incorrect)/total:.2f}%)')
+                    self.run_holdout()
+                    return
                 state = self.env.get_state()
                 if(state.get_annotation("is_done") == True):
                     break

@@ -1,0 +1,62 @@
+------Skill Skill(-1, uid='SK_i5iAIhE82Ayc3HBjult7TE0E6urgP8') -------
+Opportunity 7
+Phase: ifit
+Current error rate: 0.000000
+Current holdout error: 0.875000
+Current counts: {
+  "attempts": 0,
+  "correct": 0,
+  "hint": 7,
+  "incorrect": 0,
+  "learning_opportunities": 7,
+  "outcome": "HINT"
+}
+
+[Predicate weights]
+<no upweighted predicates>
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+------Skill Skill(-1, uid='SK_i5iAIhE82Ayc3HBjult7TE0E6urgP8') -------
+Opportunity 7
+Phase: fit
+Current error rate: 0.000000
+Current holdout error: 0.875000
+Current counts: {
+  "attempts": 0,
+  "correct": 0,
+  "hint": 7,
+  "incorrect": 0,
+  "learning_opportunities": 7,
+  "outcome": "HINT"
+}
+
+[Predicate weights]
+<no upweighted predicates>
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+

@@ -1,0 +1,58 @@
+<div style="display: flex; justify-content: center; align-items: center;">
+    <form style="width: 560px;">
+        <div class="container" style="margin: 3%;">
+            <div class="row">
+                <div class="col-sm">
+                    <div style="text-align: center;">
+                        <h3>Multicolumn Addition</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <input disabled type="text" id="initial_problem" name="problem" class="form-control" style="display:none;">
+                    <div id="initial_problem_text" style="text-align: center; width: 420px;"></div>
+                </div>
+                <div class="col-sm"></div>
+            </div>
+        </div>
+
+        <div class="container level_0" style="margin: 2%;">
+            <div class="form-group">
+                <label for="out1">Ones answer digit:</label>
+                <input type="text" id="out1" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="carry1">Carry from ones column:</label>
+                <input type="text" id="carry1" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="out2">Tens answer digit:</label>
+                <input type="text" id="out2" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="carry2">Carry from tens column:</label>
+                <input type="text" id="carry2" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="out3">Hundreds answer digit:</label>
+                <input type="text" id="out3" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="carry3">Carry from hundreds column:</label>
+                <input type="text" id="carry3" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="out4">Leading answer digit:</label>
+                <input type="text" id="out4" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        const text = $('#initial_problem').val();
+        $('#initial_problem_text').text(text);
+    });
+</script>

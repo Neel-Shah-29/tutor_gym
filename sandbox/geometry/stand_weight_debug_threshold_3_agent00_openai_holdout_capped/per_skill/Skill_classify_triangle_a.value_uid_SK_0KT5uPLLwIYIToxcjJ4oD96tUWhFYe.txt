@@ -1,0 +1,132 @@
+------Skill Skill(classify_triangle(a.value), uid='SK_0KT5uPLLwIYIToxcjJ4oD96tUWhFYe') -------
+Opportunity 2
+Phase: ifit
+Current error rate: 0.000000
+Current holdout error: 0.875000
+Current counts: {
+  "attempts": 0,
+  "correct": 0,
+  "hint": 2,
+  "incorrect": 0,
+  "learning_opportunities": 2,
+  "outcome": "HINT"
+}
+
+[Predicate weights]
+slot=994 head=triangle_type.locked nom=1 : 5.000
+slot=996 head=normalize_inputs.locked nom=1 : 5.000
+slot=998 head=Sel.locked nom=2 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+------Skill Skill(classify_triangle(a.value), uid='SK_0KT5uPLLwIYIToxcjJ4oD96tUWhFYe') -------
+Opportunity 2
+Phase: fit
+Current error rate: 0.000000
+Current holdout error: 0.875000
+Current counts: {
+  "attempts": 0,
+  "correct": 0,
+  "hint": 2,
+  "incorrect": 0,
+  "learning_opportunities": 2,
+  "outcome": "HINT"
+}
+
+[Predicate weights]
+slot=994 head=triangle_type.locked nom=1 : 5.000
+slot=996 head=normalize_inputs.locked nom=1 : 5.000
+slot=998 head=Sel.locked nom=2 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+------Skill Skill(classify_triangle(a.value), uid='SK_0KT5uPLLwIYIToxcjJ4oD96tUWhFYe') -------
+Opportunity 9
+Phase: ifit
+Current error rate: 0.000000
+Current holdout error: 0.875000
+Current counts: {
+  "attempts": 2,
+  "correct": 2,
+  "hint": 7,
+  "incorrect": 0,
+  "learning_opportunities": 9,
+  "outcome": "CORRECT"
+}
+
+[Predicate weights]
+slot=994 head=triangle_type.locked nom=1 : 5.000
+slot=996 head=normalize_inputs.locked nom=1 : 5.000
+slot=998 head=Sel.locked nom=2 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [2]	inds=[0 1]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [2]	inds=[0 1]
+
+Optimal conjunctions for label 1:
+
+
+------Skill Skill(classify_triangle(a.value), uid='SK_0KT5uPLLwIYIToxcjJ4oD96tUWhFYe') -------
+Opportunity 9
+Phase: fit
+Current error rate: 0.000000
+Current holdout error: 0.875000
+Current counts: {
+  "attempts": 2,
+  "correct": 2,
+  "hint": 7,
+  "incorrect": 0,
+  "learning_opportunities": 9,
+  "outcome": "CORRECT"
+}
+
+[Predicate weights]
+slot=994 head=triangle_type.locked nom=1 : 5.000
+slot=996 head=normalize_inputs.locked nom=1 : 5.000
+slot=998 head=Sel.locked nom=2 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [2]	inds=[0 1]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [2]	inds=[0 1]
+
+Optimal conjunctions for label 1:
+
+

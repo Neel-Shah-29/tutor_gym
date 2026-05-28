@@ -1,0 +1,135 @@
+------Skill Skill(select_area_formula(), uid='SK_CaMYrrp1dJNc12ib9COnE5SoNNMpNd') -------
+Opportunity 3
+Phase: ifit
+Current error rate: 0.333333
+Current holdout error: not_evaluated
+Current counts: {
+  "attempts": 3,
+  "correct": 2,
+  "hint": 0,
+  "incorrect": 1,
+  "learning_opportunities": 3,
+  "outcome": "INCORRECT"
+}
+
+[Predicate weights]
+slot=1929 head=TF(a == b, compute_area.value, apply_pythagorean.value) nom=2 : 5.000
+slot=1931 head=TF(a == b, compute_area.value, use_trig_ratios.value) nom=2 : 5.000
+slot=1933 head=TF(a == b, compute_area.value, consistency_checks.value) nom=2 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [ 1 -1]
+ROOT(0) : ([triangle_type.value]=='Area')[F:1 T:2] 
+          ([triangle_type.value]=='Cosines')[F:1 T:2] 	inds=[0 1]
+LEAF(1) : [0 1]	inds=[1]
+LEAF(2) : [1 0]	inds=[0]
+
+Optimal conjunctions for label -1:
+{~(triangle_type.value==1) | ~(triangle_type.value==0)}
+
+Optimal conjunctions for label 1:
+{(triangle_type.value==1) | (triangle_type.value==0)}
+
+[STAND Tree w/o weights]
+Tree w/ classes: [ 1 -1]
+ROOT(0) : ([triangle_type.value]=='Area')[F:1 T:2] 
+          ([triangle_type.value]=='Cosines')[F:1 T:2] 	inds=[0 1]
+LEAF(1) : [0 1]	inds=[1]
+LEAF(2) : [1 0]	inds=[0]
+
+Optimal conjunctions for label -1:
+{~(triangle_type.value==1) | ~(triangle_type.value==0)}
+
+Optimal conjunctions for label 1:
+{(triangle_type.value==1) | (triangle_type.value==0)}
+
+------Skill Skill(select_area_formula(), uid='SK_CaMYrrp1dJNc12ib9COnE5SoNNMpNd') -------
+Opportunity 3
+Phase: fit
+Current error rate: 0.333333
+Current holdout error: not_evaluated
+Current counts: {
+  "attempts": 3,
+  "correct": 2,
+  "hint": 0,
+  "incorrect": 1,
+  "learning_opportunities": 3,
+  "outcome": "INCORRECT"
+}
+
+[Predicate weights]
+slot=1929 head=TF(a == b, compute_area.value, apply_pythagorean.value) nom=2 : 5.000
+slot=1931 head=TF(a == b, compute_area.value, use_trig_ratios.value) nom=2 : 5.000
+slot=1933 head=TF(a == b, compute_area.value, consistency_checks.value) nom=2 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [ 1 -1]
+ROOT(0) : ([triangle_type.value]=='Area')[F:1 T:2] 
+          ([triangle_type.value]=='Cosines')[F:1 T:2] 	inds=[0 1]
+LEAF(1) : [0 1]	inds=[1]
+LEAF(2) : [1 0]	inds=[0]
+
+Optimal conjunctions for label -1:
+{~(triangle_type.value==1) | ~(triangle_type.value==0)}
+
+Optimal conjunctions for label 1:
+{(triangle_type.value==1) | (triangle_type.value==0)}
+
+[STAND Tree w/o weights]
+Tree w/ classes: [ 1 -1]
+ROOT(0) : ([triangle_type.value]=='Area')[F:1 T:2] 
+          ([triangle_type.value]=='Cosines')[F:1 T:2] 	inds=[0 1]
+LEAF(1) : [0 1]	inds=[1]
+LEAF(2) : [1 0]	inds=[0]
+
+Optimal conjunctions for label -1:
+{~(triangle_type.value==1) | ~(triangle_type.value==0)}
+
+Optimal conjunctions for label 1:
+{(triangle_type.value==1) | (triangle_type.value==0)}
+
+------Skill Skill(select_area_formula(), uid='SK_CaMYrrp1dJNc12ib9COnE5SoNNMpNd') -------
+Opportunity 10
+Phase: ifit
+Current error rate: 0.750000
+Current holdout error: not_evaluated
+Current counts: {
+  "attempts": 8,
+  "correct": 2,
+  "hint": 2,
+  "incorrect": 6,
+  "learning_opportunities": 10,
+  "outcome": "INCORRECT"
+}
+
+[Predicate weights]
+slot=1929 head=TF(a == b, compute_area.value, apply_pythagorean.value) nom=2 : 5.000
+slot=1931 head=TF(a == b, compute_area.value, use_trig_ratios.value) nom=2 : 5.000
+slot=1933 head=TF(a == b, compute_area.value, consistency_checks.value) nom=2 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [ 1 -1]
+ROOT(0) : ([triangle_type.value]=='Area')[F:1 T:2] 
+          ([triangle_type.value]=='Cosines')[F:1 T:2] 	inds=[0 1 2]
+LEAF(1) : [0 2]	inds=[1 2]
+LEAF(2) : [1 0]	inds=[0]
+
+Optimal conjunctions for label -1:
+{~(triangle_type.value==1) | ~(triangle_type.value==0)}
+
+Optimal conjunctions for label 1:
+{(triangle_type.value==1) | (triangle_type.value==0)}
+
+[STAND Tree w/o weights]
+Tree w/ classes: [ 1 -1]
+ROOT(0) : ([triangle_type.value]=='Area')[F:1 T:2] 
+          ([triangle_type.value]=='Cosines')[F:1 T:2] 	inds=[0 1 2]
+LEAF(1) : [0 2]	inds=[1 2]
+LEAF(2) : [1 0]	inds=[0]
+
+Optimal conjunctions for label -1:
+{~(triangle_type.value==1) | ~(triangle_type.value==0)}
+
+Optimal conjunctions for label 1:
+{(triangle_type.value==1) | (triangle_type.value==0)}
+

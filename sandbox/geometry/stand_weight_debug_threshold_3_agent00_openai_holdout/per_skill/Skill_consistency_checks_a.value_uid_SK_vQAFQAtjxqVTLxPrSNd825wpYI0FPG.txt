@@ -1,0 +1,196 @@
+------Skill Skill(consistency_checks(a.value), uid='SK_vQAFQAtjxqVTLxPrSNd825wpYI0FPG') -------
+Opportunity 1
+Phase: ifit
+Current error rate: 0.000000
+Current holdout error: 1.000000
+Current counts: {
+  "attempts": 0,
+  "correct": 0,
+  "hint": 1,
+  "incorrect": 0,
+  "learning_opportunities": 1,
+  "outcome": "HINT"
+}
+
+[Predicate weights]
+slot=1010 head=compute_missing_angles.locked nom=2 : 5.000
+slot=1012 head=compute_missing_sides.locked nom=2 : 5.000
+slot=1014 head=compute_unknown_by_cosine.locked nom=2 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+------Skill Skill(consistency_checks(a.value), uid='SK_vQAFQAtjxqVTLxPrSNd825wpYI0FPG') -------
+Opportunity 1
+Phase: fit
+Current error rate: 0.000000
+Current holdout error: 1.000000
+Current counts: {
+  "attempts": 0,
+  "correct": 0,
+  "hint": 1,
+  "incorrect": 0,
+  "learning_opportunities": 1,
+  "outcome": "HINT"
+}
+
+[Predicate weights]
+slot=1010 head=compute_missing_angles.locked nom=2 : 5.000
+slot=1012 head=compute_missing_sides.locked nom=2 : 5.000
+slot=1014 head=compute_unknown_by_cosine.locked nom=2 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [1]	inds=[0]
+
+Optimal conjunctions for label 1:
+
+
+------Skill Skill(consistency_checks(a.value), uid='SK_vQAFQAtjxqVTLxPrSNd825wpYI0FPG') -------
+Opportunity 4
+Phase: ifit
+Current error rate: 0.000000
+Current holdout error: 0.733333
+Current counts: {
+  "attempts": 0,
+  "correct": 0,
+  "hint": 4,
+  "incorrect": 0,
+  "learning_opportunities": 4,
+  "outcome": "HINT"
+}
+
+[Predicate weights]
+slot=2052 head=select_area_formula.locked nom=1 : 5.000
+slot=2165 head=select_area_formula.value nom=23 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [2]	inds=[0 1]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [2]	inds=[0 1]
+
+Optimal conjunctions for label 1:
+
+
+------Skill Skill(consistency_checks(a.value), uid='SK_vQAFQAtjxqVTLxPrSNd825wpYI0FPG') -------
+Opportunity 4
+Phase: fit
+Current error rate: 0.000000
+Current holdout error: 0.733333
+Current counts: {
+  "attempts": 0,
+  "correct": 0,
+  "hint": 4,
+  "incorrect": 0,
+  "learning_opportunities": 4,
+  "outcome": "HINT"
+}
+
+[Predicate weights]
+slot=2050 head=select_area_formula.locked nom=1 : 5.000
+slot=2163 head=select_area_formula.value nom=23 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [2]	inds=[0 1]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [2]	inds=[0 1]
+
+Optimal conjunctions for label 1:
+
+
+------Skill Skill(consistency_checks(a.value), uid='SK_vQAFQAtjxqVTLxPrSNd825wpYI0FPG') -------
+Opportunity 5
+Phase: ifit
+Current error rate: 0.000000
+Current holdout error: 0.866667
+Current counts: {
+  "attempts": 0,
+  "correct": 0,
+  "hint": 5,
+  "incorrect": 0,
+  "learning_opportunities": 5,
+  "outcome": "HINT"
+}
+
+[Predicate weights]
+slot=1955 head=triangle_type.value nom=1 : 5.000
+slot=2164 head=classify_triangle.value nom=18 : 5.000
+slot=2342 head=TF(a == b, compute_area.value, classify_triangle.value) nom=1 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [3]	inds=[0 1 2]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [3]	inds=[0 1 2]
+
+Optimal conjunctions for label 1:
+
+
+------Skill Skill(consistency_checks(a.value), uid='SK_vQAFQAtjxqVTLxPrSNd825wpYI0FPG') -------
+Opportunity 5
+Phase: fit
+Current error rate: 0.000000
+Current holdout error: 0.866667
+Current counts: {
+  "attempts": 0,
+  "correct": 0,
+  "hint": 5,
+  "incorrect": 0,
+  "learning_opportunities": 5,
+  "outcome": "HINT"
+}
+
+[Predicate weights]
+slot=1955 head=triangle_type.value nom=1 : 5.000
+slot=2162 head=classify_triangle.value nom=18 : 5.000
+slot=2182 head=TF(a == b, compute_area.value, classify_triangle.value) nom=1 : 5.000
+
+[STAND Tree]
+Tree w/ classes: [1]
+LEAF(0) : [3]	inds=[0 1 2]
+
+Optimal conjunctions for label 1:
+
+
+[STAND Tree w/o weights]
+Tree w/ classes: [1]
+LEAF(0) : [3]	inds=[0 1 2]
+
+Optimal conjunctions for label 1:
+
+

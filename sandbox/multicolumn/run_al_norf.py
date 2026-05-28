@@ -1,146 +1,91 @@
-# from apprentice.agents.ModularAgent import ModularAgent
+import os
+import random
+import sys
+from pathlib import Path
 
-# from apprentice.agents.pyrete_agent import PyReteAgent
-# from apprentice.agents.WhereWhenHowNoFoa import WhereWhenHowNoFoa
-# from apprentice.working_memory.representation import Sai
-# from py_rete import Production
-# from py_rete import Fact
-# from py_rete import V
-# from py_rete.conditions import Filter
+import numpy as np
 
-# from tutorenvs.multicolumn_v import MultiColumnAdditionSymbolic
-from tutorenvs.multicolumn_std import MultiColumnAddition
-from tutorenvs.utils import DataShopLogger
-from tutorenvs.trainer import Trainer
-from colorama import Back, Fore
-import colorama
-from pprint import pprint
-colorama.init(autoreset=True)
+script_path = Path(__file__).resolve()
+workspace_root = script_path.parents[3]
 
-# def run_training(agent, logger_name='MulticolumnAddition', n=10, n_columns=3, train_conflict_set=False):
+for p in [
+    str(workspace_root / "AL_Core"),
+    str(workspace_root / "tutor_gym"),
+    str(workspace_root / "STAND"),
+    str(workspace_root / "tutor_gym" / "Cognitive-Rule-Engine"),
+]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
-#     logger = DataShopLogger(logger_name, extra_kcs=['field'])
+if os.environ.get("NUMBA_DISABLE_JIT") == "1":
+    print("[run_al_norf] NUMBA_DISABLE_JIT=1 detected; enabling JIT for CRE.")
+os.environ["NUMBA_DISABLE_JIT"] = "0"
 
-#     env = MultiColumnAdditionSymbolic(logger=logger, n=n_columns)
-
-
-#     problem_set = [["777", "777"], ["666", "666"], ["777","777"]]
-#     # problem_set = [["517", "872"], ["925", "461"]]
-
-#     env.set_problem(*problem_set[0])
-
-#     ALWAYS_UPDATE_STATE = False
-#     SEND_NEXT_STATE = True
-
-#     p = 0
-#     reward = 1
-#     total_incorrect = 0
-#     total_correct = 0
-#     total_hints = 0
-#     assistance_records = []
-#     is_start_state = True
-
-#     while p < n:
-#         if(reward == 1 or ALWAYS_UPDATE_STATE):
-#             state = env.get_state()
-
-#         if(p == 50 and is_start_state):
-#             print("--DID THIS--")
-#             agent.gen_completeness_profile([state], 'comp_prof.txt')
-            
-
-#         # print("STATE ACT")
-#         # pprint({sel:(x.get('value',None),x.get('locked',None)) for sel, x in state.items()})
-#         if(train_conflict_set):
-#             # TODO: Env isn't ready for this just yet
-#             # agent.act_rollout(state)
-#             sais = agent.act_all(state)
-#             no_action = sais is None or len(sais) == 0
-
-#             if(no_action):
-#                 sai, arg_foci = env.request_demo(return_foci=True)
-#                 train_set = [{"state":state, "sai": sai, "arg_foci": arg_foci, "reward" : 1}]
-#             else:
-#                 train_set = []
-#                 for sai in sais:
-#                     reward = env.apply_sai(sai[0], sai[1], sai[2], apply_incorrects=False)
-#                     train_set.append([{"state":state, "sai": sai, "reward" : reward}])
-#                 sai = sais[0]
+from tutorgym.env_classes.apprentice.apprentice_tutor import ApprenticeTutor
+from tutorgym.envs.apprentice.cognitive_models.multicolumn.htn_multicolumn_addition import (
+    htn_multicolumn_addition_intermediate_hints,
+    htn_multicolumn_addition_problem_pool,
+)
+from tutorgym.trainer import Trainer
+from tutorgym.utils import DataShopLogger
 
 
-#             # raise ValueError("DONE")
-#         else:
-#             sai = agent.act(state)
-#             no_action = False if sai else True
+def _cycle_problem_pool(pool, n, seed=None):
+    if n <= 0:
+        return []
 
-#             arg_foci = None
-#             if no_action:
-#                 sai, arg_foci = env.request_demo(return_foci=True)
-#             elif(hasattr(sai, 'as_tuple')):
-#                 sai = sai.as_tuple()
-                
-#             reward = env.apply_sai(sai[0], sai[1], sai[2], apply_incorrects=False)
+    rng = random.Random(seed)
+    ordered = list(pool)
+    rng.shuffle(ordered)
 
-#             # if(SEND_NEXT_STATE and (reward == 1 or ALWAYS_UPDATE_STATE)):
-#             #     next_state = env.get_state()
-#             # else:
-#             #     next_state = None
+    problems = []
+    while len(problems) < n:
+        batch = list(ordered)
+        rng.shuffle(batch)
+        problems.extend(batch)
+    return problems[:n]
 
-#             agent.train(state, sai, int(reward), arg_foci=arg_foci)
 
-#         was_assistance = True
-#         if(reward == 1):
-#             if(no_action):
-#                 total_hints += 1
-#                 print(Back.BLUE + Fore.YELLOW + f"HINT: {sai[0]} -> {sai[2]}")
-#             else:
-#                 total_correct += 1
-#                 was_assistance = False
-#                 print(Back.GREEN + Fore.BLACK  + f"CORRECT: {sai[0]} -> {sai[2]}")
-#         else:
-#             total_incorrect += 1
-#             print(Back.RED + Fore.BLACK + f"INCORRECT: {sai[0]} -> {sai[2]}")
-                    
-#         if(was_assistance):
-#             assistance_records.append(f'P{p}_{sai[0]}')
+def build_problem_set(n_problems, seed=None):
+    return [
+        {"domain": "multicolumn_addition", "initial_problem": problem}
+        for problem in _cycle_problem_pool(
+            htn_multicolumn_addition_problem_pool("train"),
+            int(n_problems),
+            seed=seed,
+        )
+    ]
 
-#         if sai[0] == "done" and reward == 1.0:
-#             print("+" * 100)
-#             print(f'Finished problem {p+1} of {n}')
-            
-#             p += 1
-#             if(p < len(problem_set)):
-#                 env.set_problem(*problem_set[p])
-#             is_start_state = True
-#         else:
-#             is_start_state = False
-
-#     total = (total_hints+total_incorrect+total_correct)
-#     print(f'TOTALS  (correct:{total_correct}, incorrect:{total_incorrect}, hint:{total_hints}, assistance:{total_hints+total_incorrect})')
-#     print(f'PERCENTS(correct:{100*(total_correct)/total:.2f}%, incorrect:{100*(total_incorrect)/total:.2f}%, hint:{100*(total_hints)/total:.2f}%, assistance:{100*(total_hints+total_incorrect)/total:.2f}%)')
-#     print(f'Last 5 assistance', assistance_records[-5:])
 
 def run_training(agent, logger_name='MulticolumnAddition', n=10,
-                 n_columns=3, author_train=True, carry_zero=False):
-    
-    logger = DataShopLogger(logger_name, extra_kcs=['field'], output_dir='log_al_norf')
-    env = MultiColumnAddition(
-            demo_args=True, demo_how=False, n_digits=n_columns,
-            carry_zero=carry_zero)
+                 n_columns=3, author_train=True, carry_zero=False, seed=None):
+    if n_columns != 3:
+        raise ValueError(
+            "The ApprenticeTutor multicolumn_addition domain currently supports fixed 3-column problems."
+        )
 
-    trainer = Trainer(agent, env, logger=logger, n_problems=n)
+    logger = DataShopLogger(logger_name, extra_kcs=['field'], output_dir='log_al_norf')
+    env = ApprenticeTutor(domain="multicolumn_addition")
+
+    trainer = Trainer(
+        agent,
+        env,
+        logger=logger,
+        problem_set=build_problem_set(n, seed=seed),
+        n_problems=n,
+        training_framework="feedback_and_nl_hint",
+        nl_hint_delivery="demo_only",
+    )
     trainer.start()
 
 
 if __name__ == "__main__":
     import faulthandler; faulthandler.enable()
 
-    import numpy as np
-    np.set_printoptions(edgeitems=30, linewidth=100000, 
+    np.set_printoptions(edgeitems=30, linewidth=100000,
         formatter=dict(float=lambda x: "%.3g" % x))
 
-    
-    import sys, argparse
+    import argparse
     parser = argparse.ArgumentParser(
         description='Runs AL agents on multi-column addition')
     parser.add_argument('--n-agents', default=50, type=int, metavar="<n_agents>",
@@ -150,66 +95,55 @@ if __name__ == "__main__":
     parser.add_argument('--n-columns', default=3, type=int, metavar="<n_columns>",
                         dest="n_columns", help="number of columns")
     parser.add_argument('--agent-type', default='DIPL',metavar="<agent_type>",
-                        dest="agent_type", help="type of agents DIPL or RHS_LHS")
+                        dest="agent_type", help="agent type; DIPL is supported for this HTN runner")
+    parser.add_argument('--agent-seed-base', default=1000, type=int,
+                        dest="agent_seed_base", help="base random seed for agents/problems")
 
     args = parser.parse_args(sys.argv[1:])
 
     logger_name = f'mc_addition_{args.agent_type}_{args.n_columns}col_{args.n_problems}probs'
-    for _ in range(args.n_agents):
+    for agent_index in range(args.n_agents):
+        agent_seed = args.agent_seed_base + agent_index
+        random.seed(agent_seed)
+        np.random.seed(agent_seed)
 
         if(args.agent_type.upper() == "DIPL"):
             from apprentice.agents.cre_agents.cre_agent import CREAgent
             agent_args = {
                 "search_depth" : 2,
-                "where_learner": "antiunify",
-                # "where_learner": "mostspecific",
-                "when_learner": "sklearndecisiontree",
-                # "when_learner": "decisiontree",
-                                
-                # For STAND
-                # "when_learner": "stand",
-                # "which_learner": "when_prediction",
-                # "action_chooser" : "max_which_utility",
-                # "suggest_uncert_neg" : True,
-
-                # "explanation_choice" : "least_operations",
-                "planner" : "setchaining",
-                # // "when_args" : {"cross_rhs_inference" : "implicit_negatives"},
-                "function_set" : ["OnesDigit","TensDigit","Add3", "Add"],
-                "feature_set" : [],
-                # "feature_set" : ['Equals'],
-                "extra_features" : ["SkillCandidates","Match"],
-                "find_neighbors" : True,
-                # "strip_attrs" : ["to_left","to_right","above","below","type","id","offsetParent","dom_class"],
-                # "state_variablization" : "metaskill",
-                "when_args": {"encode_relative" : False},
+                "where_learner": "mostspecific",
+                "when_learner": "stand",
+                "which_learner": "when_prediction",
+                "action_chooser" : "max_which_utility",
+                "suggest_uncert_neg" : True,
+                "explanation_choice" : "least_operations",
+                "planner" : "set_chaining",
+                "function_set" : [
+                    "out1", "carry1", "out2", "carry2", "out3", "carry3", "out4",
+                ],
+                "feature_set" : ["Equals"],
+                "extra_features" : ["Match"],
+                "should_find_neighbors" : True,
+                "when_args": {
+                    "encode_relative" : True,
+                    "one_hot": True,
+                    "gated_hints": True,
+                    "gated_hint_map": htn_multicolumn_addition_intermediate_hints(),
+                },
+                "process_learner": "htnlearner",
+                "track_rollout_preseqs": True,
             }
             agent = CREAgent(**agent_args)
-        elif(args.agent_type.upper() == "MODULAR"):
-            agent_args = {
-                "search_depth" : 3,
-                "where_learner": "version_space",
-                # "where_learner": "mostspecific",
-                "when_learner": "decisiontree2",
-                # "when_args" : {""},
-                # "which_learner": "nonlinearproportioncorrect",
-                "explanation_choice" : "least_operations",
-                "planner" : "numba",
-                # // "when_args" : {"cross_rhs_inference" : "implicit_negatives"},
-                "function_set" : ["RipFloatValue","Mod10","Div10","Add","Add3"],
-                "feature_set" : [],
-                "strip_attrs" : ["to_left","to_right","above","below","type","id","offsetParent","dom_class"],
-                "state_variablization" : "metaskill",
-                # "state_variablization" : "whereappend",
-                "should_find_neighbors": True
-            }
-
-            from apprentice.agents.ModularAgent import ModularAgent
-            agent = ModularAgent(**agent_args)
-        elif(args.agent_type.upper() == "RHS_LHS"):
-            from apprentice.agents.RHS_LHS_Agent import RHS_LHS_Agent
-            agent = RHS_LHS_Agent(**agent_args)
         else:
-            raise ValueError(f"Unrecognized agent type {args.agent_type!r}.")
+            raise ValueError(
+                f"Unrecognized or unsupported agent type {args.agent_type!r}; "
+                "use DIPL for the ApprenticeTutor HTN multicolumn runner."
+            )
 
-        run_training(agent, logger_name=logger_name,  n=int(args.n_problems), n_columns=args.n_columns)
+        run_training(
+            agent,
+            logger_name=logger_name,
+            n=int(args.n_problems),
+            n_columns=args.n_columns,
+            seed=agent_seed,
+        )
